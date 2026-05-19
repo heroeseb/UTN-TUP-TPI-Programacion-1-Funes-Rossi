@@ -21,6 +21,65 @@ def cargar_datos(ruta):
         print('Error... No tenes permiso de lectura en este archivo.')
     return paises
 
+def input_str(mensaje,mensaje_2=None):
+    while True:
+        try:
+            input_salid = input(mensaje).strip()
+            if not input_salid.replace(' ','').isalpha():
+                raise TypeError
+            return input_salid
+        except TypeError:
+            print(mensaje_2 if mensaje_2 else 'Error de tipo')
+
+
+def input_int(mensaje,mensaje_2=None):
+    while True:
+        try:
+            input_salid = int(input(mensaje))
+            return input_salid
+        except ValueError:
+            print(mensaje_2 if mensaje_2 else 'Error de valor')
+
+def agregar_producto(lista):
+    nombre = input_str('Ingrese el nombre del pais: ','Ingrese un nombre valido')
+    poblacion = input_int('Ingrese la cantidad de población: ','Ingrese una cantidad válida!')
+    while not poblacion > 0:
+        print('El numero debe ser mayor a cero!')
+        poblacion = input_int('Ingrese la cantidad de población: ','Ingrese una cantidad válida!')
+    superficie = input_int('Ingrese la superficie del pais: ','Ingrese un número valido!')
+    while not superficie > 0:
+        print('La superficie debe ser mayor a cero!')
+        superficie = input_int('Ingrese la superficie del pais: ','Ingrese un número valido!')
+    continente = input_str('Ingrese el continen al que pertenece el pais: ','Ingrese un continente valido')
+    if not(nombre and poblacion and superficie and continente):
+        print ('Faltan datos/se cargaron incorrectamente los datos!...')
+    else:
+        diccionario = {
+                        'nombre': nombre.capitalize(),
+                        'poblacion': poblacion,
+                        'superficie': superficie,
+                        'continente': continente.capitalize()}
+        lista.append(diccionario)
+        print('Se agrego correctamente el pais!')
+    return lista
+
+Fieldnames = ['nombre','poblacion','superficie','continente']
+def guardar_datos(lista):
+    try:
+        with open(csv_ruta,'w',newline='',encoding='utf-8') as archivo:
+            writer = csv.DictWriter(archivo,fieldnames=Fieldnames)
+            writer.writeheader()
+            writer.writerows(lista)
+            print('Se guardaron correctamente los datos')
+    except PermissionError:
+        print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
+
 if __name__ == '__main__':
+    print('iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
+    print(paises)
+    print('punto 1')
+    paises = agregar_producto(paises)
+    print('guardo paises en el csv')
+    guardar_datos(paises)
     print(paises)
