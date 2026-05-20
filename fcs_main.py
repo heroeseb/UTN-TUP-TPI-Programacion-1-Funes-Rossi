@@ -74,6 +74,20 @@ def guardar_datos(lista):
     except PermissionError:
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
+
+def buscar_pais(lista):
+    '''Buscar un país por nombre (coincidencia parcial o exacta).'''
+    encontro_coincidencia = False
+    nombre = input_str('Ingrese el nombre del pais que desea buscar: ','Ingrese un nombre valido').capitalize()
+    for i in range(len(lista)):
+        nombre_lista = lista[i]['nombre']
+        if nombre in nombre_lista:
+            if nombre[0] == nombre_lista[0]:
+                encontro_coincidencia = True
+                print(f'Nombre del pais: {lista[i]['nombre']} | Población: {lista[i]['poblacion']} | Superficie: {lista[i]['superficie']} | Población: {lista[i]['poblacion']} | Continente: {lista[i]['continente']}')
+    if not encontro_coincidencia:
+        print('No se encontraron coincidencias')
+
 if __name__ == '__main__':
     print('iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
@@ -83,3 +97,5 @@ if __name__ == '__main__':
     print('guardo paises en el csv')
     guardar_datos(paises)
     print(paises)
+    print('punto 3, buscar paises')
+    buscar_pais(paises)
