@@ -40,6 +40,7 @@ def input_int(mensaje,mensaje_2=None):
         except ValueError:
             print(mensaje_2 if mensaje_2 else 'Error de valor')
 
+# punto 2
 def actualizar_datos_pys(paises):
     encontrado = False
     pais_actu = input_str("¿Cual país desea actualizar?: ","Inserte un nombre que se encuentre en la lista.").capitalize()
@@ -57,7 +58,64 @@ def actualizar_datos_pys(paises):
             d["poblacion"] = nv_poblacion 
             d["superficie"] = nv_superficie
     if not encontrado:
-        print("No se encontro un pais...")
+        print("No se encontro un país...")
+
+# punto 4
+def filtrado_paises(paises):
+    while True:
+        print("""Eliga el filtro:
+    1) Continente;
+    2) Rango de población;
+    3) Rango de superficie;
+    4) Volver atras.""")
+        opcion = input_int("","Ingrese un valor numerico valido")
+        match opcion:
+            case 1:
+                encontrado = False
+                while True:
+                    filtro = input_str("Ingrese el continente (Escribalo con tilde si es que lleva): ","Trate de ingresar el nombre correctamente.").capitalize()
+                    for d in paises:
+                        if filtro == d["continente"]:
+                            encontrado = True
+                            print(f"-{d["nombre"]}.")
+                    if not encontrado:
+                        print("No hay ningun país con ese continente.")
+                    break
+            case 2:
+                encontrado = False
+                while True:
+                    filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    while not filtro > 0:
+                        print("La cantidad debe ser mayor a cero. Minimo 1.")
+                        filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    filtro2 = input_int("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.")
+                    for d in paises:
+                        if filtro <= d["poblacion"] and d["poblacion"] <= filtro2:
+                            encontrado = True
+                            print(f"-{d["nombre"]}.")
+                    if not encontrado:
+                        print("No hay ningun país que coincida con ese rango de población.")
+                    break
+            case 3:
+                encontrado = False
+                while True:
+                    filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    while not filtro > 0:
+                        print("La cantidad debe ser mayor a cero. Minimo 1.")
+                        filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    filtro2 = input_int("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.")
+                    for d in paises:
+                        if filtro <= d["superficie"] and d["superficie"] <= filtro2:
+                            encontrado = True
+                            print(f"-{d["nombre"]}.")
+                    if not encontrado:
+                        print("No hay ningun país que coincida con ese rango de superficie.")
+                    break
+            case 4:
+                print("Volviendo...")
+                break
+            case _:
+                print("Eliga una opción presentada en pantalla.")
 
 Fieldnames = ['nombre','poblacion','superficie','continente']
 def guardar_datos(lista):
@@ -74,8 +132,8 @@ if __name__ == '__main__':
     print('iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
     print(paises)
-    print('punto 2')
-    print(actualizar_datos_pys(paises))
+    print('punto 4')
+    print(filtrado_paises(paises))
     print('guardo paises en el csv')
     guardar_datos(paises)
     print(paises)
