@@ -58,30 +58,6 @@ def actualizar_datos_pys(paises):
             d["superficie"] = nv_superficie
     if not encontrado:
         print("No se encontro un pais...")
-    
-
-def agregar_producto(lista):
-    nombre = input_str('Ingrese el nombre del pais: ','Ingrese un nombre valido')
-    poblacion = input_int('Ingrese la cantidad de población: ','Ingrese una cantidad válida!')
-    while not poblacion > 0:
-        print('El numero debe ser mayor a cero!')
-        poblacion = input_int('Ingrese la cantidad de población: ','Ingrese una cantidad válida!')
-    superficie = input_int('Ingrese la superficie del pais: ','Ingrese un número valido!')
-    while not superficie > 0:
-        print('La superficie debe ser mayor a cero!')
-        superficie = input_int('Ingrese la superficie del pais: ','Ingrese un número valido!')
-    continente = input_str('Ingrese el continen al que pertenece el pais: ','Ingrese un continente valido')
-    if not(nombre and poblacion and superficie and continente):
-        print ('Faltan datos/se cargaron incorrectamente los datos!...')
-    else:
-        diccionario = {
-                        'nombre': nombre.capitalize(),
-                        'poblacion': poblacion,
-                        'superficie': superficie,
-                        'continente': continente.capitalize()}
-        lista.append(diccionario)
-        print('Se agrego correctamente el pais!')
-    return lista
 
 Fieldnames = ['nombre','poblacion','superficie','continente']
 def guardar_datos(lista):
