@@ -17,7 +17,7 @@ def cargar_datos(ruta):
                     fila['continente'] = fila['continente']
                     paises.append(fila)
                 except (ValueError, KeyError, TypeError):
-                    print('Se ignoró una línea inválida del CSV')
+                    print('Se ignoró una línea inválida del CSV.')
     except FileNotFoundError:
         print('El archivo no existe. Se creará una lista vacía.')
     except PermissionError:
@@ -45,7 +45,7 @@ def input_int(mensaje, mensaje_2=None):
 
 # Punto 1
 def agregar_producto(lista):
-    nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido')
+    nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido.')
     poblacion = input_int('Ingrese la cantidad de población: ', 'Ingrese una cantidad válida!')
     while not poblacion > 0:
         print('¡El número debe ser mayor a cero!')
@@ -54,7 +54,7 @@ def agregar_producto(lista):
     while not superficie > 0:
         print('¡La superficie debe ser mayor a cero!')
         superficie = input_int('Ingrese la superficie del país: ', 'Ingrese un número válido!')
-    continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido')
+    continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
     
     if not (nombre and poblacion and superficie and continente):
         print('¡Faltan datos o se cargaron incorrectamente los datos!...')
@@ -78,7 +78,7 @@ def guardar_datos(lista):
             writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
             writer.writeheader()
             writer.writerows(lista)
-            print('Se guardaron correctamente los datos')
+            print('Se guardaron correctamente los datos.')
     except PermissionError:
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
@@ -86,15 +86,15 @@ def guardar_datos(lista):
 def buscar_pais(lista):
     '''Buscar un país por nombre (coincidencia parcial o exacta).'''
     encontro_coincidencia = False
-    nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido').capitalize()
+    nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido.').capitalize()
     for i in range(len(lista)):
         nombre_lista = lista[i]['nombre']
         if nombre in nombre_lista:
             if nombre[0] == nombre_lista[0]:
                 encontro_coincidencia = True
-                print(f"Nombre del país: {lista[i]['nombre']} | Población: {lista[i]['poblacion']} | Superficie: {lista[i]['superficie']} | Continente: {lista[i]['continente']}")
+                print(f"Nombre del país: {lista[i]['nombre']}. | Población: {lista[i]['poblacion']}. | Superficie: {lista[i]['superficie']}. | Continente: {lista[i]['continente']}.")
     if not encontro_coincidencia:
-        print('No se encontraron coincidencias')
+        print('No se encontraron coincidencias.')
 
 if __name__ == '__main__':
     print('Iniciamos lista y cargamos datos')
