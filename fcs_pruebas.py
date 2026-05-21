@@ -135,11 +135,11 @@ def filtrado_paises(paises):
 # punto 6
 def mostrar_estadisticas(paises):
     lista_poblaciones = []
-    lista_superficie = []
+    lista_superficie = [] # lambda x:
     for d in paises:
-        lista_poblaciones.append(d["poblacion"]) # fijarme de convertirlo en lista más facil. Investigar "list()"
+        lista_poblaciones.append(d["poblacion"])
     for d in paises:
-        lista_superficie.append(d["superficie"]) # fijarme de convertirlo en lista más facil. Investigar "list()"
+        lista_superficie.append(d["superficie"])
     mayor = max(lista_poblaciones)
     for d in paises:
         if mayor == d["poblacion"]:
