@@ -117,6 +117,8 @@ def filtrado_paises(paises):
             case _:
                 print("Eliga una opción presentada en pantalla.")
 
+# punto 6
+
 Fieldnames = ['nombre','poblacion','superficie','continente']
 def guardar_datos(lista):
     try:
