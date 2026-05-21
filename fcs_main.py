@@ -44,7 +44,7 @@ def input_int(mensaje, mensaje_2=None):
             print(mensaje_2 if mensaje_2 else 'Error de valor')
 
 # Punto 1
-def agregar_producto(lista):
+def agregar_pais(lista):
     nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido')
     poblacion = input_int('Ingrese la cantidad de población: ', 'Ingrese una cantidad válida!')
     while not poblacion > 0:
@@ -83,27 +83,73 @@ def guardar_datos(lista):
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
 # Punto 3
+def quitar_tildes(texto):
+    texto = texto.lower()
+    reemplazos = {
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'ü': 'u',
+        'ñ': 'n'
+    }
+    for letra_tilde, letra_normal in reemplazos.items():
+        texto = texto.replace(letra_tilde, letra_normal)
+    return texto
+
 def buscar_pais(lista):
     '''Buscar un país por nombre (coincidencia parcial o exacta).'''
     encontro_coincidencia = False
     nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido').capitalize()
     for i in range(len(lista)):
         nombre_lista = lista[i]['nombre']
-        if nombre in nombre_lista:
-            if nombre[0] == nombre_lista[0]:
+        if quitar_tildes(nombre) in quitar_tildes(nombre_lista):
+            if quitar_tildes(nombre[0]) == quitar_tildes(nombre_lista[0]):
                 encontro_coincidencia = True
                 print(f"Nombre del país: {lista[i]['nombre']} | Población: {lista[i]['poblacion']} | Superficie: {lista[i]['superficie']} | Continente: {lista[i]['continente']}")
     if not encontro_coincidencia:
         print('No se encontraron coincidencias')
+
+# Punto 5
+def ordenar_paises(lista):
+    print('Ordenar países por:')
+    print('1. Nombre')
+    print('2. Población')
+    print('3. Superficie')
+    opcion = input('Ingrese una opción: ').strip()
+    opcion = quitar_tildes(opcion)
+    match opcion:
+        case '1' | 'nombre':
+            lista.sort(key= lambda x:x['nombre'])
+        case '2' | 'poblacion':
+            lista.sort(key= lambda x:x['poblacion'])
+        case '3' | 'superficie':
+            print('1. Ascendente')
+            print('2. Descendente')
+            opcion3 = input('Ingrese una opción: ').strip().lower()
+            match opcion3:
+                case '1' | 'ascendente':
+                    lista.sort(key= lambda x:x['superficie'])
+                case '2' | 'descendente':
+                    lista.sort(key= lambda x:x['superficie'],reverse=True)
+                case _:
+                    print('¡Por favor ingrese una opción correcta!')
+        case _:
+            print('¡Por favor ingrese una opción correcta!')
+    return lista
 
 if __name__ == '__main__':
     print('Iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
     print(paises)
     print('Punto 1')
-    paises = agregar_producto(paises)
+    paises = agregar_pais(paises)
     print('Guardo países en el csv')
     guardar_datos(paises)
     print(paises)
     print('Punto 3, buscar países')
     buscar_pais(paises)
+    print('Punto 5,ordenar países')
+    ordenar_paises(paises)
+    print(paises)
