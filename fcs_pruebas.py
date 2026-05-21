@@ -73,11 +73,26 @@ def filtrado_paises(paises):
             case 1:
                 encontrado = False
                 while True:
-                    filtro = input_str("Ingrese el continente (Escribalo con tilde si es que lleva): ","Trate de ingresar el nombre correctamente.").capitalize()
+                    filtro = input_str("Ingrese el continente: ","Trate de ingresar el nombre correctamente.").capitalize()
                     for d in paises:
                         if filtro == d["continente"]:
                             encontrado = True
                             print(f"-{d["nombre"]}.")
+                        elif filtro == "America":
+                            filtro = "América"
+                            if filtro == d["continente"]:
+                                encontrado = True
+                                print(f"-{d["nombre"]}.")
+                        elif filtro == "Africa":
+                            filtro = "África"
+                            if filtro == d["continente"]:
+                                encontrado = True
+                                print(f"-{d["nombre"]}.")
+                        elif filtro == "Oceania":
+                            filtro = "Oceanía"
+                            if filtro == d["continente"]:
+                                encontrado = True
+                                print(f"-{d["nombre"]}.")
                     if not encontrado:
                         print("No hay ningun país con ese continente.")
                     break
@@ -118,6 +133,47 @@ def filtrado_paises(paises):
                 print("Eliga una opción presentada en pantalla.")
 
 # punto 6
+def mostrar_estadisticas(paises):
+    lista_poblaciones = []
+    lista_superficie = []
+    for d in paises:
+        lista_poblaciones.append(d["poblacion"]) # fijarme de convertirlo en lista más facil. Investigar "list()"
+    for d in paises:
+        lista_superficie.append(d["superficie"]) # fijarme de convertirlo en lista más facil. Investigar "list()"
+    mayor = max(lista_poblaciones)
+    for d in paises:
+        if mayor == d["poblacion"]:
+            pais_ma = d["nombre"]
+    print(f"El país con mayor población es: {pais_ma}, con una cantidad de: {mayor} habitantes.")
+    menor = min(lista_poblaciones)
+    for d in paises:
+        if menor == d["poblacion"]:
+            pais_me = d["nombre"]
+    print(f"El país con mayor población es: {pais_me}, con una cantidad de: {menor} habitantes.")
+    print(f"El promedio de población es: {sum(lista_poblaciones) / len(lista_poblaciones)}.")
+    print(f"El promedio de superficie es: {sum(lista_superficie) / len(lista_superficie)}.")
+    americanos = 0
+    europeos = 0
+    africanos = 0
+    asiaticos = 0
+    oceanicos = 0
+    for d in paises:
+        if d["continente"] == "América":
+            americanos += 1
+        elif d["continente"] == "África":
+           africanos += 1
+        elif d["continente"] == "Europa":
+           europeos += 1
+        elif d["continente"] == "Asia":
+           asiaticos += 1
+        elif d["continente"] == "Oceanía":
+           oceanicos += 1
+    print(f"""Cantidad de paises en..:
+América: {americanos};
+Europa: {europeos};
+Asia: {asiaticos};
+África: {africanos};
+Oceanía: {oceanicos}.""")
 
 Fieldnames = ['nombre','poblacion','superficie','continente']
 def guardar_datos(lista):
@@ -134,8 +190,8 @@ if __name__ == '__main__':
     print('iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
     print(paises)
-    print('punto 4')
-    print(filtrado_paises(paises))
+    print('punto 6')
+    print(mostrar_estadisticas(paises))
     print('guardo paises en el csv')
     guardar_datos(paises)
     print(paises)
