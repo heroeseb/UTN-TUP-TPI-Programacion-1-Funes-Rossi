@@ -64,10 +64,10 @@ def actualizar_datos_pys(paises):
 def filtrado_paises(paises):
     while True:
         print("""Eliga el filtro:
-    1) Continente;
-    2) Rango de población;
-    3) Rango de superficie;
-    4) Volver atras.""")
+1) Continente;
+2) Rango de población;
+3) Rango de superficie;
+4) Volver atras.""")
         opcion = input_int("","Ingrese un valor numerico valido")
         match opcion:
             case 1:
@@ -75,26 +75,17 @@ def filtrado_paises(paises):
                 while True:
                     filtro = input_str("Ingrese el continente: ","Trate de ingresar el nombre correctamente.").capitalize()
                     for d in paises:
-                        if filtro == d["continente"]:
-                            encontrado = True
-                            print(f"-{d["nombre"]}.")
+                        if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
                         elif filtro == "America":
                             filtro = "América"
-                            if filtro == d["continente"]:
-                                encontrado = True
-                                print(f"-{d["nombre"]}.")
+                            if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
                         elif filtro == "Africa":
                             filtro = "África"
-                            if filtro == d["continente"]:
-                                encontrado = True
-                                print(f"-{d["nombre"]}.")
+                            if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
                         elif filtro == "Oceania":
                             filtro = "Oceanía"
-                            if filtro == d["continente"]:
-                                encontrado = True
-                                print(f"-{d["nombre"]}.")
-                    if not encontrado:
-                        print("No hay ningun país con ese continente.")
+                            if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.") 
+                    if not encontrado: print("No hay ningun país con ese continente.")
                     break
             case 2:
                 encontrado = False
@@ -105,11 +96,8 @@ def filtrado_paises(paises):
                         filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
                     filtro2 = input_int("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.")
                     for d in paises:
-                        if filtro <= d["poblacion"] and d["poblacion"] <= filtro2:
-                            encontrado = True
-                            print(f"-{d["nombre"]}.")
-                    if not encontrado:
-                        print("No hay ningun país que coincida con ese rango de población.")
+                        if filtro <= d["poblacion"] and d["poblacion"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
+                    if not encontrado: print("No hay ningun país que coincida con ese rango de población.")
                     break
             case 3:
                 encontrado = False
@@ -120,11 +108,8 @@ def filtrado_paises(paises):
                         filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
                     filtro2 = input_int("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.")
                     for d in paises:
-                        if filtro <= d["superficie"] and d["superficie"] <= filtro2:
-                            encontrado = True
-                            print(f"-{d["nombre"]}.")
-                    if not encontrado:
-                        print("No hay ningun país que coincida con ese rango de superficie.")
+                        if filtro <= d["superficie"] and d["superficie"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
+                    if not encontrado: print("No hay ningun país que coincida con ese rango de superficie.")
                     break
             case 4:
                 print("Volviendo...")
@@ -191,7 +176,7 @@ if __name__ == '__main__':
     paises = cargar_datos(csv_ruta)
     print(paises)
     print('punto 6')
-    print(mostrar_estadisticas(paises))
+    print(filtrado_paises(paises))
     print('guardo paises en el csv')
     guardar_datos(paises)
     print(paises)
