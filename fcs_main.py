@@ -46,14 +46,14 @@ def input_int(mensaje, mensaje_2=None):
 # Punto 1
 def agregar_producto(lista):
     nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido.')
-    poblacion = input_int('Ingrese la cantidad de población: ', 'Ingrese una cantidad válida!')
+    poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
     while not poblacion > 0:
         print('¡El número debe ser mayor a cero!')
-        poblacion = input_int('Ingrese la cantidad de población: ', 'Ingrese una cantidad válida!')
-    superficie = input_int('Ingrese la superficie del país: ', 'Ingrese un número válido!')
+        poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
+    superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
     while not superficie > 0:
         print('¡La superficie debe ser mayor a cero!')
-        superficie = input_int('Ingrese la superficie del país: ', 'Ingrese un número válido!')
+        superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
     continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
     
     if not (nombre and poblacion and superficie and continente):
