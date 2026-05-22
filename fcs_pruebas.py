@@ -40,6 +40,22 @@ def input_int(mensaje,mensaje_2=None):
         except ValueError:
             print(mensaje_2 if mensaje_2 else 'Error de valor')
 
+# funcion para quitar tildes
+def quitar_tildes(texto):
+    texto = texto.lower()
+    reemplazos = {
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'ü': 'u',
+        'ñ': 'n'
+    }
+    for letra_tilde, letra_normal in reemplazos.items():
+        texto = texto.replace(letra_tilde, letra_normal)
+    return texto
+
 # punto 2
 def actualizar_datos_pys(paises):
     encontrado = False
@@ -57,8 +73,7 @@ def actualizar_datos_pys(paises):
                 nv_superficie = input_int(f"¿Cual sera la nueva superficie para {pais_actu}?: ", "Inserte un valor valido.")
             d["poblacion"] = nv_poblacion 
             d["superficie"] = nv_superficie
-    if not encontrado:
-        print("No se encontro un país...")
+    if not encontrado: print("No se encontro un país...")
 
 # punto 4
 def filtrado_paises(paises):
@@ -119,21 +134,15 @@ def filtrado_paises(paises):
 
 # punto 6
 def mostrar_estadisticas(paises):
-    lista_poblaciones = []
-    lista_superficie = [] # lambda x:
-    for d in paises:
-        lista_poblaciones.append(d["poblacion"])
-    for d in paises:
-        lista_superficie.append(d["superficie"])
+    lista_poblaciones = list(map(lambda x: x["poblacion"], paises))
+    lista_superficie = list(map(lambda x: x["superficie"], paises))
     mayor = max(lista_poblaciones)
     for d in paises:
-        if mayor == d["poblacion"]:
-            pais_ma = d["nombre"]
+        if mayor == d["poblacion"]: pais_ma = d["nombre"]
     print(f"El país con mayor población es: {pais_ma}, con una cantidad de: {mayor} habitantes.")
     menor = min(lista_poblaciones)
     for d in paises:
-        if menor == d["poblacion"]:
-            pais_me = d["nombre"]
+        if menor == d["poblacion"]: pais_me = d["nombre"]
     print(f"El país con mayor población es: {pais_me}, con una cantidad de: {menor} habitantes.")
     print(f"El promedio de población es: {sum(lista_poblaciones) / len(lista_poblaciones)}.")
     print(f"El promedio de superficie es: {sum(lista_superficie) / len(lista_superficie)}.")
@@ -143,16 +152,11 @@ def mostrar_estadisticas(paises):
     asiaticos = 0
     oceanicos = 0
     for d in paises:
-        if d["continente"] == "América":
-            americanos += 1
-        elif d["continente"] == "África":
-           africanos += 1
-        elif d["continente"] == "Europa":
-           europeos += 1
-        elif d["continente"] == "Asia":
-           asiaticos += 1
-        elif d["continente"] == "Oceanía":
-           oceanicos += 1
+        if d["continente"] == "América": americanos += 1
+        elif d["continente"] == "África": africanos += 1
+        elif d["continente"] == "Europa": europeos += 1
+        elif d["continente"] == "Asia": asiaticos += 1
+        elif d["continente"] == "Oceanía": oceanicos += 1
     print(f"""Cantidad de paises en..:
 América: {americanos};
 Europa: {europeos};
@@ -176,7 +180,7 @@ if __name__ == '__main__':
     paises = cargar_datos(csv_ruta)
     print(paises)
     print('punto 6')
-    print(filtrado_paises(paises))
+    print(mostrar_estadisticas(paises))
     print('guardo paises en el csv')
     guardar_datos(paises)
     print(paises)
