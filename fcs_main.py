@@ -82,6 +82,25 @@ def guardar_datos(lista):
     except PermissionError:
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
+# punto 2
+def actualizar_datos_pys(paises):
+    encontrado = False
+    pais_actu = input_str("¿Cual país desea actualizar?: ","Inserte un nombre que se encuentre en la lista.").capitalize()
+    for d in paises:
+        if pais_actu == d["nombre"]:
+            encontrado = True  
+            nv_poblacion = input_int(f"¿Cual sera la nueva poblacion para {pais_actu}?: ","Inserte un valor valido.")
+            while not nv_poblacion > 0:
+                print("La cantidad de poblacion debe ser un valor numerico mayor a cero.")
+                nv_poblacion = input_int(f"¿Cual sera la nueva poblacion para {pais_actu}?: ","Inserte un valor valido.")
+            nv_superficie = input_int(f"¿Cual sera la nueva superficie para {pais_actu}?: ", "Inserte un valor valido.")
+            while not nv_superficie > 0:
+                print("La cantidad de superficie debe ser un valor numerico mayor a cero.")
+                nv_superficie = input_int(f"¿Cual sera la nueva superficie para {pais_actu}?: ", "Inserte un valor valido.")
+            d["poblacion"] = nv_poblacion 
+            d["superficie"] = nv_superficie
+    if not encontrado: print("No se encontro un país...")
+
 # Punto 3
 def buscar_pais(lista):
     '''Buscar un país por nombre (coincidencia parcial o exacta).'''
