@@ -53,19 +53,19 @@ def input_int(mensaje, mensaje_2=None):
 
 # Punto 1
 def agregar_pais(lista):
-    nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido')
-    poblacion = input_int('Ingrese la cantidad de población: ', 'Ingrese una cantidad válida!')
+    nombre = input_str('Ingrese el nombre del país: ', '¡Ingrese un nombre válido')
+    poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
     while not poblacion > 0:
         print('¡El número debe ser mayor a cero!')
-        poblacion = input_int('Ingrese la cantidad de población: ', 'Ingrese una cantidad válida!')
-    superficie = input_int('Ingrese la superficie del país: ', 'Ingrese un número válido!')
+        poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
+    superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
     while not superficie > 0:
         print('¡La superficie debe ser mayor a cero!')
-        superficie = input_int('Ingrese la superficie del país: ', 'Ingrese un número válido!')
-    continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido')
+        superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
+    continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
     
     if not (nombre and poblacion and superficie and continente):
-        print('¡Faltan datos o se cargaron incorrectamente los datos!...')
+        print('¡Faltan datos o se cargaron incorrectamente los datos...!')
     else:
         diccionario = {
             'nombre': nombre.capitalize(),
@@ -86,7 +86,7 @@ def guardar_datos(lista):
             writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
             writer.writeheader()
             writer.writerows(lista)
-            print('Se guardaron correctamente los datos')
+            print('Se guardaron correctamente los datos.')
     except PermissionError:
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
@@ -109,7 +109,7 @@ def quitar_tildes(texto):
 def buscar_pais(lista):
     '''Buscar un país por nombre (coincidencia parcial o exacta).'''
     encontro_coincidencia = False
-    nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido').capitalize()
+    nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido.').capitalize()
     for i in range(len(lista)):
         nombre_lista = lista[i]['nombre']
         if quitar_tildes(nombre) in quitar_tildes(nombre_lista):
@@ -117,7 +117,7 @@ def buscar_pais(lista):
                 encontro_coincidencia = True
                 print(f"Nombre del país: {lista[i]['nombre']} | Población: {lista[i]['poblacion']} | Superficie: {lista[i]['superficie']} | Continente: {lista[i]['continente']}")
     if not encontro_coincidencia:
-        print('No se encontraron coincidencias')
+        print('No se encontraron coincidencias.')
 
 # Punto 5
 def ordenar_paises(lista):
