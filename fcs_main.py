@@ -1,7 +1,6 @@
 import csv
 
 csv_ruta = 'paises.csv'
-paises = []
 
 # Función para cargar datos
 def cargar_datos(ruta):
@@ -23,6 +22,15 @@ def cargar_datos(ruta):
     except PermissionError:
         print('Error... No tenés permiso de lectura en este archivo.')
     return paises
+
+def menu():
+    print('1. Agregar un país.')
+    print('2. Actualizar los datos de Población y Superficie de un País.')
+    print('3. Buscar un país por nombre.')
+    print('4. Filtrar países.')
+    print('5. Ordenar países.')
+    print('6. Mostrar estadísticas.')
+    print('7. Salir.')
 
 # Validación de inputs
 def input_str(mensaje, mensaje_2=None):
@@ -140,6 +148,7 @@ def ordenar_paises(lista):
     return lista
 
 if __name__ == '__main__':
+    paises = []
     print('Iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
     print(paises)
