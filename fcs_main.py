@@ -1,5 +1,6 @@
 import csv
-
+import os
+import questionary
 csv_ruta = 'paises.csv'
 paises = []
 
@@ -55,6 +56,34 @@ def guardar_datos(lista):
             print('Se guardaron correctamente los datos.')
     except PermissionError:
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
+
+# Seleccionar con questionary
+def seleccionar_menu():
+    opcion = questionary.select(
+        message="Seleccioná:",
+        choices=['1. Agregar un país.','2. Actualizar los datos de Población y Superficie de un País.',
+                '3. Buscar un país por nombre.','4. Filtrar países.',
+                '5. Ordenar países.','6. Mostrar estadísticas.','7. Salir.']
+    ).ask()
+    return opcion
+
+# Limpiar consola
+def limpiar_consola():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+# Función para continuar
+def continuar():
+    input("Presione cualquier tecla para continuar")
+
+# Función de menu
+def menu():
+    print('1. Agregar un país.')
+    print('2. Actualizar los datos de Población y Superficie de un País.')
+    print('3. Buscar un país por nombre.')
+    print('4. Filtrar países.')
+    print('5. Ordenar países.')
+    print('6. Mostrar estadísticas.')
+    print('7. Salir.')
 
 # Punto 1
 def agregar_producto(lista):
