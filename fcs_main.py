@@ -144,6 +144,7 @@ def actualizar_datos_pys(paises):
                 nv_superficie = input_int(f"¿Cual sera la nueva superficie para {pais_actu}?: ", "Inserte un valor valido.")
             d["poblacion"] = nv_poblacion 
             d["superficie"] = nv_superficie
+            print("País actualizado correctamente.")
     if not encontrado: print("No se encontro un país...")
 
 # Punto 3
@@ -249,14 +250,16 @@ Asia: {asiaticos};
 Oceanía: {oceanicos}.""")
 
 
-# if __name__ == '__main__':
-#     print('Iniciamos lista y cargamos datos')
-#     paises = cargar_datos(csv_ruta)
-#     print(paises)
-#     print('Punto 1')
-#     paises = agregar_producto(paises)
-#     print('Guardo países en el csv')
-#     guardar_datos(paises)
-#     print(paises)
-#     print('Punto 3, buscar países')
-#     buscar_pais(paises)
+if __name__ == '__main__':
+    print('Iniciamos lista y cargamos datos')
+    paises = cargar_datos(csv_ruta)
+    print(paises)
+    print('Punto 1')
+    paises = agregar_producto(paises)
+    print("punto 6")
+    mostrar_estadisticas(paises)
+    print('Guardo países en el csv')
+    guardar_datos(paises)
+    print(paises)
+    print('Punto 3, buscar países')
+    buscar_pais(paises)
