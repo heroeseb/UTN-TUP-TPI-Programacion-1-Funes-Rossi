@@ -43,6 +43,19 @@ def input_int(mensaje, mensaje_2=None):
         except ValueError:
             print(mensaje_2 if mensaje_2 else 'Error de valor')
 
+# Función para guardar datos
+Fieldnames = ['nombre', 'poblacion', 'superficie', 'continente']
+
+def guardar_datos(lista):
+    try:
+        with open(csv_ruta, 'w', newline='', encoding='utf-8') as archivo:
+            writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
+            writer.writeheader()
+            writer.writerows(lista)
+            print('Se guardaron correctamente los datos.')
+    except PermissionError:
+        print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
+
 # Punto 1
 def agregar_producto(lista):
     nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido.')
@@ -69,18 +82,7 @@ def agregar_producto(lista):
         print('¡Se agregó correctamente el país!')
     return lista
 
-# Función para guardar datos
-Fieldnames = ['nombre', 'poblacion', 'superficie', 'continente']
 
-def guardar_datos(lista):
-    try:
-        with open(csv_ruta, 'w', newline='', encoding='utf-8') as archivo:
-            writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
-            writer.writeheader()
-            writer.writerows(lista)
-            print('Se guardaron correctamente los datos.')
-    except PermissionError:
-        print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
 # punto 2
 def actualizar_datos_pys(paises):
@@ -114,6 +116,95 @@ def buscar_pais(lista):
                 print(f"Nombre del país: {lista[i]['nombre']}. | Población: {lista[i]['poblacion']}. | Superficie: {lista[i]['superficie']}. | Continente: {lista[i]['continente']}.")
     if not encontro_coincidencia:
         print('No se encontraron coincidencias.')
+
+# punto 4
+def filtrado_paises(paises):
+    while True:
+        print("""Eliga el filtro:
+1) Continente;
+2) Rango de población;
+3) Rango de superficie;
+4) Volver atras.""")
+        opcion = input_int("","Ingrese un valor numerico valido")
+        match opcion:
+            case 1:
+                encontrado = False
+                while True:
+                    filtro = input_str("Ingrese el continente: ","Trate de ingresar el nombre correctamente.").capitalize()
+                    for d in paises:
+                        if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
+                        elif filtro == "America":
+                            filtro = "América"
+                            if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
+                        elif filtro == "Africa":
+                            filtro = "África"
+                            if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
+                        elif filtro == "Oceania":
+                            filtro = "Oceanía"
+                            if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.") 
+                    if not encontrado: print("No hay ningun país con ese continente.")
+                    break
+            case 2:
+                encontrado = False
+                while True:
+                    filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    while not filtro > 0:
+                        print("La cantidad debe ser mayor a cero. Minimo 1.")
+                        filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    filtro2 = input_int("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.")
+                    for d in paises:
+                        if filtro <= d["poblacion"] and d["poblacion"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
+                    if not encontrado: print("No hay ningun país que coincida con ese rango de población.")
+                    break
+            case 3:
+                encontrado = False
+                while True:
+                    filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    while not filtro > 0:
+                        print("La cantidad debe ser mayor a cero. Minimo 1.")
+                        filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
+                    filtro2 = input_int("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.")
+                    for d in paises:
+                        if filtro <= d["superficie"] and d["superficie"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
+                    if not encontrado: print("No hay ningun país que coincida con ese rango de superficie.")
+                    break
+            case 4:
+                print("Volviendo...")
+                break
+            case _:
+                print("Eliga una opción presentada en pantalla.")
+
+# punto 6
+def mostrar_estadisticas(paises):
+    lista_poblaciones = list(map(lambda x: x["poblacion"], paises))
+    lista_superficie = list(map(lambda x: x["superficie"], paises))
+    mayor = max(lista_poblaciones)
+    menor = min(lista_poblaciones)
+    for d in paises:
+        if mayor == d["poblacion"]: pais_ma = d["nombre"]
+        if menor == d["poblacion"]: pais_me = d["nombre"]
+    print(f"""El país con mayor población es: {pais_ma}, con una cantidad de: {mayor} habitantes.
+El país con mayor población es: {pais_me}, con una cantidad de: {menor} habitantes.""")
+    print(f"El promedio de población es: {sum(lista_poblaciones) / len(lista_poblaciones)}.")
+    print(f"El promedio de superficie es: {sum(lista_superficie) / len(lista_superficie)}.")
+    americanos = 0
+    europeos = 0
+    africanos = 0
+    asiaticos = 0
+    oceanicos = 0
+    for d in paises:
+        if d["continente"] == "América": americanos += 1
+        elif d["continente"] == "África": africanos += 1
+        elif d["continente"] == "Europa": europeos += 1
+        elif d["continente"] == "Asia": asiaticos += 1
+        elif d["continente"] == "Oceanía": oceanicos += 1
+    print(f"""Cantidad de paises en..:
+América: {americanos};
+Europa: {europeos};
+Asia: {asiaticos};
+África: {africanos};
+Oceanía: {oceanicos}.""")
+
 
 if __name__ == '__main__':
     print('Iniciamos lista y cargamos datos')
