@@ -25,6 +25,19 @@ def cargar_datos(ruta):
         print('Error... No tenés permiso de lectura en este archivo.')
     return paises
 
+# Función para guardar datos
+Fieldnames = ['nombre', 'poblacion', 'superficie', 'continente']
+
+def guardar_datos(lista):
+    try:
+        with open(csv_ruta, 'w', newline='', encoding='utf-8') as archivo:
+            writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
+            writer.writeheader()
+            writer.writerows(lista)
+            print('Se guardaron correctamente los datos.')
+    except PermissionError:
+        print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
+
 # Validación de inputs
 def input_str(mensaje, mensaje_2=None):
     while True:
@@ -44,29 +57,6 @@ def input_int(mensaje, mensaje_2=None):
         except ValueError:
             print(mensaje_2 if mensaje_2 else 'Error de valor')
 
-# Función para guardar datos
-Fieldnames = ['nombre', 'poblacion', 'superficie', 'continente']
-
-def guardar_datos(lista):
-    try:
-        with open(csv_ruta, 'w', newline='', encoding='utf-8') as archivo:
-            writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
-            writer.writeheader()
-            writer.writerows(lista)
-            print('Se guardaron correctamente los datos.')
-    except PermissionError:
-        print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
-
-# Seleccionar con questionary
-def seleccionar_menu():
-    opcion = questionary.select(
-        message="Seleccioná:",
-        choices=['1. Agregar un país.','2. Actualizar los datos de Población y Superficie de un País.',
-                '3. Buscar un país por nombre.','4. Filtrar países.',
-                '5. Ordenar países.','6. Mostrar estadísticas.','7. Salir.']
-    ).ask()
-    return opcion
-
 # Limpiar consola
 def limpiar_consola():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -74,6 +64,22 @@ def limpiar_consola():
 # Función para continuar
 def continuar():
     input("Presione cualquier tecla para continuar")
+
+# funcion para quitar tildes
+def quitar_tildes(texto):
+    texto = texto.lower()
+    reemplazos = {
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'ü': 'u',
+        'ñ': 'n'
+    }
+    for letra_tilde, letra_normal in reemplazos.items():
+        texto = texto.replace(letra_tilde, letra_normal)
+    return texto
 
 # Función de menu
 def menu():
@@ -84,6 +90,16 @@ def menu():
     print('5. Ordenar países.')
     print('6. Mostrar estadísticas.')
     print('7. Salir.')
+
+# Seleccionar con questionary
+def seleccionar_menu():
+    opcion = questionary.select(
+        message="Seleccione la acción a realizar:",
+        choices=['1. Agregar un país.','2. Actualizar los datos de Población y Superficie de un País.',
+                '3. Buscar un país por nombre.','4. Filtrar países.',
+                '5. Ordenar países.','6. Mostrar estadísticas.','7. Salir.']
+    ).ask()
+    return opcion
 
 # Punto 1
 def agregar_producto(lista):
@@ -110,8 +126,6 @@ def agregar_producto(lista):
         lista.append(diccionario)
         print('¡Se agregó correctamente el país!')
     return lista
-
-
 
 # punto 2
 def actualizar_datos_pys(paises):
@@ -235,14 +249,14 @@ Asia: {asiaticos};
 Oceanía: {oceanicos}.""")
 
 
-if __name__ == '__main__':
-    print('Iniciamos lista y cargamos datos')
-    paises = cargar_datos(csv_ruta)
-    print(paises)
-    print('Punto 1')
-    paises = agregar_producto(paises)
-    print('Guardo países en el csv')
-    guardar_datos(paises)
-    print(paises)
-    print('Punto 3, buscar países')
-    buscar_pais(paises)
+# if __name__ == '__main__':
+#     print('Iniciamos lista y cargamos datos')
+#     paises = cargar_datos(csv_ruta)
+#     print(paises)
+#     print('Punto 1')
+#     paises = agregar_producto(paises)
+#     print('Guardo países en el csv')
+#     guardar_datos(paises)
+#     print(paises)
+#     print('Punto 3, buscar países')
+#     buscar_pais(paises)
