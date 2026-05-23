@@ -137,13 +137,12 @@ def mostrar_estadisticas(paises):
     lista_poblaciones = list(map(lambda x: x["poblacion"], paises))
     lista_superficie = list(map(lambda x: x["superficie"], paises))
     mayor = max(lista_poblaciones)
-    for d in paises:
-        if mayor == d["poblacion"]: pais_ma = d["nombre"]
-    print(f"El país con mayor población es: {pais_ma}, con una cantidad de: {mayor} habitantes.")
     menor = min(lista_poblaciones)
     for d in paises:
+        if mayor == d["poblacion"]: pais_ma = d["nombre"]
         if menor == d["poblacion"]: pais_me = d["nombre"]
-    print(f"El país con mayor población es: {pais_me}, con una cantidad de: {menor} habitantes.")
+    print(f"""El país con mayor población es: {pais_ma}, con una cantidad de: {mayor} habitantes.
+El país con mayor población es: {pais_me}, con una cantidad de: {menor} habitantes.""")
     print(f"El promedio de población es: {sum(lista_poblaciones) / len(lista_poblaciones)}.")
     print(f"El promedio de superficie es: {sum(lista_superficie) / len(lista_superficie)}.")
     americanos = 0
