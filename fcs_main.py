@@ -1,4 +1,6 @@
 import csv
+import os
+import questionary
 
 csv_ruta = 'paises.csv'
 
@@ -23,6 +25,25 @@ def cargar_datos(ruta):
         print('Error... No tenés permiso de lectura en este archivo.')
     return paises
 
+# Seleccionar con questionary
+def seleccionar_menu():
+    opcion = questionary.select(
+        message="Seleccioná:",
+        choices=['1. Agregar un país.','2. Actualizar los datos de Población y Superficie de un País.',
+                '3. Buscar un país por nombre.','4. Filtrar países.',
+                '5. Ordenar países.','6. Mostrar estadísticas.','7. Salir.']
+    ).ask()
+    return opcion
+
+# Limpiar consola
+def limpiar_consola():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+# Función para continuar
+def continuar():
+    input("Presione cualquier tecla para continuar")
+
+# Función de menu
 def menu():
     print('1. Agregar un país.')
     print('2. Actualizar los datos de Población y Superficie de un País.')
