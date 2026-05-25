@@ -8,10 +8,11 @@ while True:
     match opcion:
         case '1. Agregar un país.':
             paises = agregar_pais(paises)
-            guardar_datos()
+            guardar_datos(paises)
             continuar()
         case '2. Actualizar los datos de Población y Superficie de un País.':
             actualizar_datos_pys(paises)
+            guardar_datos(paises)
             continuar()
         case '3. Buscar un país por nombre.':
             buscar_pais(paises)
