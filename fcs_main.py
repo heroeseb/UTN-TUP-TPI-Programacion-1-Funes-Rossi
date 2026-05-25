@@ -63,7 +63,7 @@ def limpiar_consola():
 
 # Función para continuar
 def continuar():
-    input("Presione cualquier tecla para continuar")
+    input("Presione ¬Enter para continuar")
 
 # funcion para quitar tildes
 def quitar_tildes(texto):
@@ -81,15 +81,6 @@ def quitar_tildes(texto):
         texto = texto.replace(letra_tilde, letra_normal)
     return texto
 
-# Función de menu
-def menu():
-    print('1. Agregar un país.')
-    print('2. Actualizar los datos de Población y Superficie de un País.')
-    print('3. Buscar un país por nombre.')
-    print('4. Filtrar países.')
-    print('5. Ordenar países.')
-    print('6. Mostrar estadísticas.')
-    print('7. Salir.')
 
 # Seleccionar con questionary
 def seleccionar_menu():
@@ -102,8 +93,9 @@ def seleccionar_menu():
     return opcion
 
 # Punto 1
-def agregar_producto(lista):
-    nombre = input_str('Ingrese el nombre del país: ', 'Ingrese un nombre válido.')
+def agregar_pais(lista):
+    continentes = {'africa':'África','america':'América','antartida':'Antártida','asia':'Asia','europa':'Europa','oceania':'Oceanía'}
+    nombre = input_str('Ingrese el nombre del país: ', '¡Ingrese un nombre válido')
     poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
     while not poblacion > 0:
         print('¡El número debe ser mayor a cero!')
@@ -113,15 +105,17 @@ def agregar_producto(lista):
         print('¡La superficie debe ser mayor a cero!')
         superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
     continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
-    
+    while not(quitar_tildes(continente) in continentes.keys()):
+        print('Por favor ingrese un continente válido.')
+        continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
     if not (nombre and poblacion and superficie and continente):
-        print('¡Faltan datos o se cargaron incorrectamente los datos!...')
+        print('¡Faltan datos o se cargaron incorrectamente los datos...!')
     else:
         diccionario = {
             'nombre': nombre.capitalize(),
             'poblacion': poblacion,
             'superficie': superficie,
-            'continente': continente.capitalize()
+            'continente': continentes[quitar_tildes(continente)]
         }
         lista.append(diccionario)
         print('¡Se agregó correctamente el país!')
@@ -154,10 +148,10 @@ def buscar_pais(lista):
     nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido.').capitalize()
     for i in range(len(lista)):
         nombre_lista = lista[i]['nombre']
-        if nombre in nombre_lista:
-            if nombre[0] == nombre_lista[0]:
+        if quitar_tildes(nombre) in quitar_tildes(nombre_lista):
+            if quitar_tildes(nombre[0]) == quitar_tildes(nombre_lista[0]):
                 encontro_coincidencia = True
-                print(f"Nombre del país: {lista[i]['nombre']}. | Población: {lista[i]['poblacion']}. | Superficie: {lista[i]['superficie']}. | Continente: {lista[i]['continente']}.")
+                print(f"Nombre del país: {lista[i]['nombre']} | Población: {lista[i]['poblacion']} | Superficie: {lista[i]['superficie']} | Continente: {lista[i]['continente']}")
     if not encontro_coincidencia:
         print('No se encontraron coincidencias.')
 
@@ -218,8 +212,39 @@ def filtrado_paises(paises):
             case _:
                 print("Eliga una opción presentada en pantalla.")
 
+# Punto 5
+def ordenar_paises(lista):
+    print('Ordenar países por:')
+    print('1. Nombre')
+    print('2. Población')
+    print('3. Superficie')
+    opcion = input('Ingrese una opción: ').strip()
+    opcion = quitar_tildes(opcion)
+    match opcion:
+        case '1' | 'nombre':
+            lista.sort(key= lambda x:x['nombre'])
+        case '2' | 'poblacion':
+            lista.sort(key= lambda x:x['poblacion'])
+        case '3' | 'superficie':
+            print('1. Ascendente')
+            print('2. Descendente')
+            opcion3 = input('Ingrese una opción: ').strip().lower()
+            match opcion3:
+                case '1' | 'ascendente':
+                    lista.sort(key= lambda x:x['superficie'])
+                case '2' | 'descendente':
+                    lista.sort(key= lambda x:x['superficie'],reverse=True)
+                case _:
+                    print('¡Por favor ingrese una opción correcta!')
+        case _:
+            print('¡Por favor ingrese una opción correcta!')
+    return lista
+
 # punto 6
 def mostrar_estadisticas(paises):
+    if not paises:
+        print("No hay datos cargados para calcular estadísticas.")
+        return
     lista_poblaciones = list(map(lambda x: x["poblacion"], paises))
     lista_superficie = list(map(lambda x: x["superficie"], paises))
     mayor = max(lista_poblaciones)
@@ -254,12 +279,26 @@ if __name__ == '__main__':
     print('Iniciamos lista y cargamos datos')
     paises = cargar_datos(csv_ruta)
     print(paises)
+    
     print('Punto 1')
-    paises = agregar_producto(paises)
+    paises = agregar_pais(paises)
+    
+    print('punto 2')
+    actualizar_datos_pys(paises)
+    
+    print('Punto 3, buscar países')
+    buscar_pais(paises)
+    
+    print('punto 4')
+    filtrado_paises(paises)
+    
+    print('Punto 5,ordenar países')
+    ordenar_paises(paises)
+    print(paises)
+    
     print("punto 6")
     mostrar_estadisticas(paises)
+    
     print('Guardo países en el csv')
     guardar_datos(paises)
     print(paises)
-    print('Punto 3, buscar países')
-    buscar_pais(paises)
