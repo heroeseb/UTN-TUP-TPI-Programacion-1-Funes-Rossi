@@ -239,6 +239,9 @@ def ordenar_paises(lista):
 
 # punto 6
 def mostrar_estadisticas(paises):
+    if not paises:
+        print("No hay datos cargados para calcular estadísticas.")
+        return
     lista_poblaciones = list(map(lambda x: x["poblacion"], paises))
     lista_superficie = list(map(lambda x: x["superficie"], paises))
     mayor = max(lista_poblaciones)
