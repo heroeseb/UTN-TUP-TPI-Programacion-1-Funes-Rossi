@@ -1,44 +1,30 @@
 from fcs_main import *
-import questionary
-import csv
-import os
-csv_ruta = 'paises.csv'
-paises = []
-#     print('Iniciamos lista y cargamos datos')
-#     paises = cargar_datos(csv_ruta)
-#     print(paises)
-#     print('Punto 1')
-#     paises = agregar_producto(paises)
-#     print('Guardo países en el csv')
-#     guardar_datos(paises)
-#     print(paises)
-#     print('Punto 3, buscar países')
-#     buscar_pais(paises)
 
 paises = cargar_datos(csv_ruta)
+
 while True:
     limpiar_consola()
-    opcion = seleccionar_menu()[0]
+    opcion = seleccionar_menu()
     match opcion:
-        case "1":
-            paises = agregar_producto(paises)
+        case '1. Agregar un país.':
+            paises = agregar_pais(paises)
+            guardar_datos(paises)
             continuar()
-        case "2":
+        case '2. Actualizar los datos de Población y Superficie de un País.':
             actualizar_datos_pys(paises)
+            guardar_datos(paises)
             continuar()
-        case "3":
+        case '3. Buscar un país por nombre.':
             buscar_pais(paises)
             continuar()
-        case "4":
+        case '4. Filtrar países.':
             filtrado_paises(paises) # arreglar sub-menu
-        case "5":
-            pass
-        case "6":
+        case '5. Ordenar países.':
+            ordenar_paises(paises)
+            continuar()
+        case '6. Mostrar estadísticas.':
             mostrar_estadisticas(paises)
             continuar()
-        case "7":
-            print("Hasta luego, ¡vuelva pronto!")
-            guardar_datos(lista)
+        case '7. Salir.':
+            print('Hasta luego, ¡vuelva pronto!')
             break
-        case _:
-            print("lol")
