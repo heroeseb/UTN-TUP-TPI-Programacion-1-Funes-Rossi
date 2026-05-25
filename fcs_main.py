@@ -63,7 +63,7 @@ def limpiar_consola():
 
 # Función para continuar
 def continuar():
-    input("Presione cualquier tecla para continuar")
+    input("Presione ¬Enter para continuar")
 
 # funcion para quitar tildes
 def quitar_tildes(texto):
@@ -94,6 +94,7 @@ def seleccionar_menu():
 
 # Punto 1
 def agregar_pais(lista):
+    continentes = {'africa':'África','america':'América','antartida':'Antártida','asia':'Asia','europa':'Europa','oceania':'Oceanía'}
     nombre = input_str('Ingrese el nombre del país: ', '¡Ingrese un nombre válido')
     poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
     while not poblacion > 0:
@@ -104,7 +105,9 @@ def agregar_pais(lista):
         print('¡La superficie debe ser mayor a cero!')
         superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
     continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
-    
+    while not(quitar_tildes(continente) in continentes.keys()):
+        print('Por favor ingrese un continente válido.')
+        continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
     if not (nombre and poblacion and superficie and continente):
         print('¡Faltan datos o se cargaron incorrectamente los datos...!')
     else:
@@ -112,7 +115,7 @@ def agregar_pais(lista):
             'nombre': nombre.capitalize(),
             'poblacion': poblacion,
             'superficie': superficie,
-            'continente': continente.capitalize()
+            'continente': continentes[quitar_tildes(continente)]
         }
         lista.append(diccionario)
         print('¡Se agregó correctamente el país!')

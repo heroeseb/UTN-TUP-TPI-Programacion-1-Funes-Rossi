@@ -4,27 +4,27 @@ paises = cargar_datos(csv_ruta)
 
 while True:
     limpiar_consola()
-    opcion = seleccionar_menu()
+    opcion = seleccionar_menu()[0]
     match opcion:
-        case '1. Agregar un país.':
+        case '1':
             paises = agregar_pais(paises)
             guardar_datos(paises)
             continuar()
-        case '2. Actualizar los datos de Población y Superficie de un País.':
+        case '2':
             actualizar_datos_pys(paises)
             guardar_datos(paises)
             continuar()
-        case '3. Buscar un país por nombre.':
+        case '3':
             buscar_pais(paises)
             continuar()
-        case '4. Filtrar países.':
+        case '4':
             filtrado_paises(paises) # arreglar sub-menu
-        case '5. Ordenar países.':
+        case '5':
             ordenar_paises(paises)
             continuar()
-        case '6. Mostrar estadísticas.':
+        case '6':
             mostrar_estadisticas(paises)
             continuar()
-        case '7. Salir.':
+        case '7':
             print('Hasta luego, ¡vuelva pronto!')
             break
