@@ -92,22 +92,67 @@ def seleccionar_menu():
     ).ask()
     return opcion
 
+# Función desea continuar con la carga
+def desea_continuar():
+    continuar = questionary.select(
+        message= '¿Desea continuar con la carga?: ',
+        choices= ['Si','No']
+    ).ask()
+    return True if continuar == 'Si' else False
+
+# Función de input con cancelación
+def input_c_cancel(mensaje,mensaje_error,tipo):
+    match tipo:
+        case 'int':
+            while True:
+                dato = input(mensaje).strip()
+                try:
+                    numero = int(dato)
+                    if numero > 0:
+                        return numero
+                    else:
+                        print('¡El número debe ser mayor a cero!')
+                except ValueError:
+                    print(mensaje_error)
+                if not desea_continuar():
+                    return None
+        case 'str':
+            while True:
+                dato = input(mensaje).strip()
+                try:
+                    if not dato.replace(' ', '').isalpha() or dato == "":
+                        raise TypeError
+                    return dato
+                except TypeError:
+                    print(mensaje_error)
+                if not desea_continuar():
+                    return None
+
 # Punto 1
 def agregar_pais(lista):
     continentes = {'africa':'África','america':'América','antartida':'Antártida','asia':'Asia','europa':'Europa','oceania':'Oceanía'}
-    nombre = input_str('Ingrese el nombre del país: ', '¡Ingrese un nombre válido')
-    poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
-    while not poblacion > 0:
-        print('¡El número debe ser mayor a cero!')
-        poblacion = input_int('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!')
-    superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
-    while not superficie > 0:
-        print('¡La superficie debe ser mayor a cero!')
-        superficie = input_int('Ingrese la superficie del país: ', '¡Ingrese un número válido!')
-    continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
+    nombre = input_c_cancel('Ingrese el nombre del país: ', '¡Ingrese un nombre válido','str')
+    if nombre == None:
+        print('Se cancelo la carga del país.')
+        return lista
+    poblacion = input_c_cancel('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!','int')
+    if poblacion == None:
+        print('Se cancelo la carga del país.')
+        return lista
+    superficie = input_c_cancel('Ingrese la superficie del país: ', '¡Ingrese un número válido!','int')
+    if superficie == None:
+        print('Se cancelo la carga del país.')
+        return lista
+    continente = input_c_cancel('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.','str')
+    if continente == None:
+        print('Se cancelo la carga del país.')
+        return lista
     while not(quitar_tildes(continente) in continentes.keys()):
         print('Por favor ingrese un continente válido.')
-        continente = input_str('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.')
+        continente = input_c_cancel('Ingrese el continente al que pertenece el país: ', 'Ingrese un continente válido.','str')
+        if continente == None:
+            print('Se cancelo la carga del país.')
+            return lista
     if not (nombre and poblacion and superficie and continente):
         print('¡Faltan datos o se cargaron incorrectamente los datos...!')
     else:
