@@ -18,7 +18,7 @@ while True:
             buscar_pais(paises)
             continuar()
         case '4':
-            filtrado_paises(paises) # arreglar sub-menu
+            filtrado_paises(paises)
         case '5':
             ordenar_paises(paises)
             continuar()

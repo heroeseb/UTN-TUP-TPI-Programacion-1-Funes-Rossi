@@ -156,16 +156,19 @@ def buscar_pais(lista):
         print('No se encontraron coincidencias.')
 
 # punto 4
+def sub_menu_punto4():
+    opcion = questionary.select(
+        message="Eliga el filtro:",
+        choices=['1) Continente;','2) Rango de población;',
+                '3) Rango de superficie;','4) Volver atras.']
+    ).ask()
+    return opcion
+
 def filtrado_paises(paises):
     while True:
-        print("""Eliga el filtro:
-1) Continente;
-2) Rango de población;
-3) Rango de superficie;
-4) Volver atras.""")
-        opcion = input_int("","Ingrese un valor numerico valido")
+        opcion = sub_menu_punto4()[0]
         match opcion:
-            case 1:
+            case "1":
                 encontrado = False
                 while True:
                     filtro = input_str("Ingrese el continente: ","Trate de ingresar el nombre correctamente.").capitalize()
@@ -182,7 +185,7 @@ def filtrado_paises(paises):
                             if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.") 
                     if not encontrado: print("No hay ningun país con ese continente.")
                     break
-            case 2:
+            case "2":
                 encontrado = False
                 while True:
                     filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
@@ -194,7 +197,7 @@ def filtrado_paises(paises):
                         if filtro <= d["poblacion"] and d["poblacion"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
                     if not encontrado: print("No hay ningun país que coincida con ese rango de población.")
                     break
-            case 3:
+            case "3":
                 encontrado = False
                 while True:
                     filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
@@ -206,7 +209,7 @@ def filtrado_paises(paises):
                         if filtro <= d["superficie"] and d["superficie"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
                     if not encontrado: print("No hay ningun país que coincida con ese rango de superficie.")
                     break
-            case 4:
+            case "4":
                 print("Volviendo...")
                 break
             case _:
