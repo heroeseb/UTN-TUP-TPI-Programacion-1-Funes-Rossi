@@ -122,7 +122,7 @@ def input_c_cancel(mensaje,mensaje_error,tipo):
                 try:
                     if not dato.replace(' ', '').isalpha() or dato == "":
                         raise TypeError
-                    return dato
+                    return dato.capitalize()
                 except TypeError:
                     print(mensaje_error)
                 if not desea_continuar():
@@ -134,6 +134,9 @@ def agregar_pais(lista):
     nombre = input_c_cancel('Ingrese el nombre del país: ', '¡Ingrese un nombre válido','str')
     if nombre == None:
         print('Se cancelo la carga del país.')
+        return lista
+    if quitar_tildes(nombre) in [quitar_tildes(e['nombre']) for e in lista]:
+        print('¡El país ya esta cargado en la lista!')
         return lista
     poblacion = input_c_cancel('Ingrese la cantidad de población: ', '¡Ingrese una cantidad válida!','int')
     if poblacion == None:
@@ -185,6 +188,7 @@ def actualizar_datos_pys(paises):
             d["superficie"] = nv_superficie
             print("País actualizado correctamente.")
     if not encontrado: print("No se encontro un país...")
+    return paises
 
 # Punto 3
 def buscar_pais(lista):
@@ -201,16 +205,19 @@ def buscar_pais(lista):
         print('No se encontraron coincidencias.')
 
 # punto 4
+def sub_menu_punto4():
+    opcion = questionary.select(
+        message="Eliga el filtro:",
+        choices=['1) Continente;','2) Rango de población;',
+                '3) Rango de superficie;','4) Volver atras.']
+    ).ask()
+    return opcion
+
 def filtrado_paises(paises):
     while True:
-        print("""Eliga el filtro:
-1) Continente;
-2) Rango de población;
-3) Rango de superficie;
-4) Volver atras.""")
-        opcion = input_int("","Ingrese un valor numerico valido")
+        opcion = sub_menu_punto4()[0]
         match opcion:
-            case 1:
+            case "1":
                 encontrado = False
                 while True:
                     filtro = input_str("Ingrese el continente: ","Trate de ingresar el nombre correctamente.").capitalize()
@@ -227,7 +234,7 @@ def filtrado_paises(paises):
                             if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.") 
                     if not encontrado: print("No hay ningun país con ese continente.")
                     break
-            case 2:
+            case "2":
                 encontrado = False
                 while True:
                     filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
@@ -239,7 +246,7 @@ def filtrado_paises(paises):
                         if filtro <= d["poblacion"] and d["poblacion"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
                     if not encontrado: print("No hay ningun país que coincida con ese rango de población.")
                     break
-            case 3:
+            case "3":
                 encontrado = False
                 while True:
                     filtro = input_int("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.")
@@ -251,38 +258,78 @@ def filtrado_paises(paises):
                         if filtro <= d["superficie"] and d["superficie"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
                     if not encontrado: print("No hay ningun país que coincida con ese rango de superficie.")
                     break
-            case 4:
+            case "4":
                 print("Volviendo...")
                 break
             case _:
                 print("Eliga una opción presentada en pantalla.")
 
 # Punto 5
+def menu_punto_5():
+    opcion = questionary.select(
+        message='Ordenar países por:',
+        choices=['1. Nombre','2. Población','3. Superficie']
+    ).ask()
+    return opcion
+
+def sub_menu_asc_desc():
+    opcion = questionary.select(
+        message='Ordenar de forma:',
+        choices=['1. Ascendente','2. Descendente']
+    ).ask()
+    return opcion
+
+def mostrar_todos_paises(lista):
+    opcion = questionary.select(
+        message='¿Desea mostrar todos los países?:',
+        choices=['1. Si','2. No']
+    ).ask()
+    match opcion[0]:
+        case '1':
+            for pais in lista:
+                print('-'*50)
+                for k,v in pais.items():
+                    print(f'{k} : {v}')
+                print('-'*50)
+        case '2':
+            return
+
 def ordenar_paises(lista):
-    print('Ordenar países por:')
-    print('1. Nombre')
-    print('2. Población')
-    print('3. Superficie')
-    opcion = input('Ingrese una opción: ').strip()
-    opcion = quitar_tildes(opcion)
+    opcion = menu_punto_5()[0]
     match opcion:
-        case '1' | 'nombre':
-            lista.sort(key= lambda x:x['nombre'])
-        case '2' | 'poblacion':
-            lista.sort(key= lambda x:x['poblacion'])
-        case '3' | 'superficie':
-            print('1. Ascendente')
-            print('2. Descendente')
-            opcion3 = input('Ingrese una opción: ').strip().lower()
+        case '1':
+            opcion1 = sub_menu_asc_desc()[0]
+            match opcion1:
+                case '1':
+                    lista.sort(key= lambda x:x['nombre'])
+                    print('¡Países ordenados correctamente!')
+                    mostrar_todos_paises(lista)
+                case '2':
+                    lista.sort(key= lambda x:x['nombre'],reverse=True)
+                    print('¡Países ordenados correctamente!')
+                    mostrar_todos_paises(lista)
+        case '2':
+            opcion2 = sub_menu_asc_desc()[0]
+            match opcion2:
+                case '1':
+                    lista.sort(key= lambda x:x['poblacion'])
+                    print('¡Países ordenados correctamente!')
+                    mostrar_todos_paises(lista)
+                case '2':
+                    lista.sort(key= lambda x:x['poblacion'],reverse=True)
+                    print('¡Países ordenados correctamente!')
+                    mostrar_todos_paises(lista)
+        case '3':
+            opcion3 = sub_menu_asc_desc()[0]
             match opcion3:
-                case '1' | 'ascendente':
+                case '1':
                     lista.sort(key= lambda x:x['superficie'])
-                case '2' | 'descendente':
+                    print('¡Países ordenados correctamente!')
+                    mostrar_todos_paises(lista)
+                case '2':
                     lista.sort(key= lambda x:x['superficie'],reverse=True)
-                case _:
-                    print('¡Por favor ingrese una opción correcta!')
-        case _:
-            print('¡Por favor ingrese una opción correcta!')
+                    print('¡Países ordenados correctamente!')
+                    mostrar_todos_paises(lista)
     return lista
 
 # punto 6

@@ -11,16 +11,17 @@ while True:
             guardar_datos(paises)
             continuar()
         case '2':
-            actualizar_datos_pys(paises)
+            paises = actualizar_datos_pys(paises)
             guardar_datos(paises)
             continuar()
         case '3':
             buscar_pais(paises)
             continuar()
         case '4':
-            filtrado_paises(paises) # arreglar sub-menu
+            filtrado_paises(paises)
         case '5':
-            ordenar_paises(paises)
+            paises = ordenar_paises(paises)
+            guardar_datos(paises)
             continuar()
         case '6':
             mostrar_estadisticas(paises)
