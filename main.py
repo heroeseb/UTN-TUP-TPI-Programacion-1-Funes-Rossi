@@ -19,6 +19,7 @@ while True:
             continuar()
         case '4':
             filtrado_paises(paises)
+            continuar()
         case '5':
             paises = ordenar_paises(paises)
             guardar_datos(paises)

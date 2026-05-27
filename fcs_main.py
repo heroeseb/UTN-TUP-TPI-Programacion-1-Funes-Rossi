@@ -171,6 +171,9 @@ def agregar_pais(lista):
 
 # punto 2
 def actualizar_datos_pys(paises):
+    if not paises:
+        print('No hay datos cargados para actualizar.')
+        return paises
     encontrado = False
     pais_actu = input_str("¿Cual país desea actualizar?: ","Inserte un nombre que se encuentre en la lista.").capitalize()
     for d in paises:
@@ -192,6 +195,9 @@ def actualizar_datos_pys(paises):
 
 # Punto 3
 def buscar_pais(lista):
+    if not lista:
+        print('No hay datos cargados para buscar.')
+        return
     '''Buscar un país por nombre (coincidencia parcial o exacta).'''
     encontro_coincidencia = False
     nombre = input_str('Ingrese el nombre del país que desea buscar: ', 'Ingrese un nombre válido.').capitalize()
@@ -215,6 +221,9 @@ def sub_menu_punto4():
 
 def filtrado_paises(paises):
     while True:
+        if not paises:
+            print('No hay datos cargados para filtrar.')
+            return
         opcion = sub_menu_punto4()[0]
         match opcion:
             case "1":
@@ -295,6 +304,9 @@ def mostrar_todos_paises(lista):
             return
 
 def ordenar_paises(lista):
+    if not lista:
+        print('No hay datos cargados para ordenar.')
+        return lista
     opcion = menu_punto_5()[0]
     match opcion:
         case '1':
