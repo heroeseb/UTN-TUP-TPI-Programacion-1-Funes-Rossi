@@ -2,6 +2,8 @@ from fcs_main import *
 
 paises = cargar_datos(csv_ruta)
 
+input('Presione ¬Enter para comenzar')
+
 while True:
     limpiar_consola()
     opcion = seleccionar_menu("Seleccione la acción a realizar:",['1. Agregar un país.','2. Actualizar los datos de Población y Superficie de un País.',

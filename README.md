@@ -5,7 +5,7 @@ Sistema en Python para la gestión, filtrado, ordenamiento y análisis estadíst
 -Funes Pablo
 -Rossi Valentino
 
-(-)Instrucciones:
+(-)Instrucciones de desarrollo:
 Se nos asigno el desarrollo de un programa en Python que permite gestionar informacion sobre paises, aplicando listas, diccionarios, funciones, estructuras condicionales y repetitivas, ordenamientos y estadisticas. El mismo sistema debe ser capaz de leer un archivo .csv y trabajar con los datos del mismo. El programa debe ser capaz de realizar consultas y general indicadores clave a partir del dataset.
 
 Debemos de usar todo lo aprendido de la materia Programacion 1. (Nos dieron libertad de buscar librerias para uso propio, siempre y cuando esten permitidas).
@@ -20,7 +20,14 @@ Temas:
 8- Manejo de errores (Uso del try, except, else, y finally);
 9- Manejo de archivos (Manejo de archivos como .csv y .txt).
 
-(-)Ejemplos:
+(-)Instrucciones al usuario:
+Al iniciar el programa se va a encontrar con el menu. Se le proporciona 7 acciones para realizar, cada una se detalla en su nombre que es lo que hacen.
+Para seleccionar la opcion que desea realizar, maneje con las flechas del teclado hasta que la flecha de la izquierda de las opciones este apuntando la opcion que desea hacer. Una vez que la flecha apunte a la opcion: Aprete enter.
+Dependiendo de la opcion, se le pedira escribir o seleccionar un submenu. El submenu se maneja igual que el menu principal.
+La opcion 7 (salir) le permite salir del programa, si es que así lo desea.
+Recuerde usar tildes.
+
+(-)Ejemplos tecnicos:
 -Ejemplo N°1:
 El usuario ingresa "}", sea acompañado de un texto o no.
 Entrada: Alemania}
