@@ -189,16 +189,18 @@ def actualizar_datos_pys(paises):
             raise NoInicializadaError('No hay datos cargados para actualizar.')
         encontrado = False
         pais_actu = input_c_cancel("¿Cual país desea actualizar?: ","Inserte un nombre que se encuentre en la lista.","str")
+        if pais_actu == None: raise VariableVaciaError("Se cancela la actualización de datos")
         for d in paises:
             if pais_actu == d["nombre"]:
                 encontrado = True  
                 nv_poblacion = input_c_cancel(f"¿Cual sera la nueva poblacion para {pais_actu}?: ","Inserte un valor valido.","int","La cantidad de poblacion debe ser un valor numerico mayor a cero.")
+                if nv_poblacion == None: raise VariableVaciaError("Se cancela la actualización de datos")
                 nv_superficie = input_c_cancel(f"¿Cual sera la nueva superficie para {pais_actu}?: ", "Inserte un valor valido.","int", "La cantidad de superficie debe ser un valor numerico mayor a cero.")
+                if nv_superficie == None: raise VariableVaciaError("Se cancela la actualización de datos")
                 if nv_poblacion and nv_superficie:
                     d["poblacion"] = nv_poblacion 
                     d["superficie"] = nv_superficie
                     print("País actualizado correctamente.")
-        if not (pais_actu and nv_poblacion and nv_superficie): raise VariableVaciaError("Se cancela la actualización de datos")
         if not encontrado: raise NoEncontradoError("No se encontro el país...")
         return paises
     except NoInicializadaError as e:
