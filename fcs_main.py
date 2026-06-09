@@ -375,11 +375,11 @@ El país con menor población es: {pais_me}, con una cantidad de: {menor} habita
             elif d["continente"] == "Asia": asiaticos += 1
             elif d["continente"] == "Oceanía": oceanicos += 1
         print(f"""Cantidad de paises en..:
-    América: {americanos};
-    Europa: {europeos};
-    Asia: {asiaticos};
-    África: {africanos};
-    Oceanía: {oceanicos}.""")
+América: {americanos};
+Europa: {europeos};
+Asia: {asiaticos};
+África: {africanos};
+Oceanía: {oceanicos}.""")
     except NoInicializadaError as e:
         print(e)
 
