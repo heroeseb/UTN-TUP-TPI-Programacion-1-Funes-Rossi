@@ -63,32 +63,32 @@ def guardar_datos(lista):
 def input_str(mensaje, mensaje_2=None):
     while True:
         try:
-            input_salid = input(mensaje).strip()
-            if not input_salid.replace(' ', '').isalpha():
-                raise TypeError
-            return input_salid
-        except TypeError:
+            input_salid = input(mensaje).strip() # saca los espacios del principio y final si es que hay
+            if not input_salid.replace(' ', '').isalpha(): # verifica que no sea un espacio vacio, que no sea nada y que sean letras nada más.
+                raise TypeError # salta error TypeError
+            return input_salid # devuelve lo ingresado
+        except TypeError: # error de tipo
             print(mensaje_2 if mensaje_2 else 'Error de tipo')
 
 def input_int(mensaje, mensaje_2=None):
     while True:
         try:
             input_salid = int(input(mensaje))
-            return input_salid
-        except ValueError:
+            return input_salid # devuelve lo ingresado
+        except ValueError: # error de valor, si es que no se pudo convertir el input_salid a numero entero
             print(mensaje_2 if mensaje_2 else 'Error de valor')
 
 # Limpiar consola
 def limpiar_consola():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear') # basicamente elimina todo lo escrito anteriormente en la consola. La limpia visualmente.
 
 # Función para continuar
 def continuar():
-    input("Presione ¬Enter para continuar")
+    input("Presione ¬Enter para continuar") # cualquer cosa que ponga el usuario, va a continuar. 
 
 # funcion para quitar tildes
-def quitar_tildes(texto):
-    texto = texto.lower()
+def quitar_tildes(texto): # basicamente cambia las letras que llevan tildes por letras que no tengan tildes.
+    texto = texto.lower() # primero lo vuelve todo minusculas
     reemplazos = {
         'á': 'a',
         'é': 'e',
@@ -99,55 +99,55 @@ def quitar_tildes(texto):
         'ñ': 'n'
     }
     for letra_tilde, letra_normal in reemplazos.items():
-        texto = texto.replace(letra_tilde, letra_normal)
-    return texto
+        texto = texto.replace(letra_tilde, letra_normal) # aca las reemplaza
+    return texto # devuelve el texto ingresado, pero sin tildes
 
 
 # Seleccionar con questionary
 def seleccionar_menu(mensaje,opciones):
-    opcion = questionary.select(
-        message= mensaje,
-        choices= opciones
-    ).ask()
-    return opcion
+    opcion = questionary.select( # Opcion es una variable que toma el dato que devuelve .select()
+        message= mensaje, # message es el mensaje de aparece primero, pero que no se selecciona
+        choices= opciones # choices son las opciones que el usuario puede seleccionar 
+    ).ask() # .ask() define que es una pregunta, algo que debe de devolver.
+    return opcion # devuelve "opcion"
 
 # Función desea continuar con la carga
 def desea_continuar():
-    continuar = questionary.select(
-        message= '¿Desea continuar con la carga?: ',
-        choices= ['Si','No']
-    ).ask()
-    return True if continuar == 'Si' else False
+    continuar = questionary.select( # continuar es una variable que toma el dato que devuelve .select()
+        message= '¿Desea continuar con la carga?: ', # message es el mensaje de aparece primero, pero que no se selecciona
+        choices= ['Si','No'] # choices son las opciones que el usuario puede seleccionar 
+    ).ask() # .ask() define que es una pregunta, algo que debe de devolver.
+    return True if continuar == 'Si' else False # si continuar es igual a "Si" una opcion que puede seleccionar el usuario, entonces se devuelve True. De lo contrario se devuelve False
 
 # Función de input con cancelación
 def input_c_cancel(mensaje,mensaje_error='Inserte un valor valido.',tipo='str',mensaje_negativo='¡El número debe ser mayor a cero!'):
     match tipo:
-        case 'int':
+        case 'int': # Si esperamos que sea int el dato devuelto
             while True:
-                dato = input(mensaje).strip()
+                dato = input(mensaje).strip() # dato es la variable que se devuelve
                 try:
                     numero = int(dato)
-                    if numero > 0:
+                    if numero > 0: # si numero es mayor que cero
                         return numero
                     else:
-                        raise NumeroNegativoError(mensaje_negativo)
-                except ValueError:
+                        raise NumeroNegativoError(mensaje_negativo) # Salta el error de numero negativo
+                except ValueError: # Si el dato no es un numero o caracter valido para int
                     print(mensaje_error)
-                except NumeroNegativoError as e:
+                except NumeroNegativoError as e: # error de que si es negativo el numero
                     print(e)
-                if not desea_continuar():
-                    return None
-        case 'str':
+                if not desea_continuar(): # se cita la funcion. Caso de devolver False:
+                    return None # no se returnea nada.
+        case 'str': # Si esperamos que sea string el dato devuelto
             while True:
-                dato = input(mensaje).strip()
+                dato = input(mensaje).strip() # Sacamos los espacios del principio y final con el .strip()
                 try:
-                    if not dato.replace(' ', '').isalpha() or dato == "":
-                        raise ValueError
+                    if not dato.replace(' ', '').isalpha() or dato == "": # Nos fijamos que no sea un espacio o no sea nada la variable. 
+                        raise ValueError # salta el error de ValueError
                     return dato.capitalize()
-                except ValueError:
-                    print(mensaje_error)
-                if not desea_continuar():
-                    return None
+                except ValueError: # Si el dato no es una letra o caracter valido para string
+                    print(mensaje_error) # printea el mensaje_error. 
+                if not desea_continuar(): # se cita la funcion con el mismo nombre. Caso de devolver False:
+                    return None # no se returnea nada
 
 # Punto 1
 def agregar_pais(lista):
@@ -184,30 +184,30 @@ def agregar_pais(lista):
 
 # punto 2
 def actualizar_datos_pys(paises):
-    try:
+    try: # abrimos try. para despues saltar los errores si es que surgen.
         if not paises:
-            raise NoInicializadaError('No hay datos cargados para actualizar.')
-        encontrado = False
+            raise NoInicializadaError('No hay datos cargados para actualizar.') # Si la lista paises no esta creada o no tiene datos dentro. Salta el error.
+        encontrado = False # Una bandera.
         pais_actu = input_c_cancel("¿Cual país desea actualizar?: ","Inserte un nombre que se encuentre en la lista.","str")
-        if pais_actu == None: raise VariableVaciaError("Se cancela la actualización de datos")
+        if pais_actu == None: raise VariableVaciaError("Se cancela la actualización de datos") # Por si no ingresa nada el usuario.
         for d in paises:
-            if pais_actu == d["nombre"]:
-                encontrado = True  
+            if pais_actu == d["nombre"]: # d["nombre"] es el nombre del respectivo pais.
+                encontrado = True  # Aca esta la bandera, si esta true, sabemos que si se encontro algo.
                 nv_poblacion = input_c_cancel(f"¿Cual sera la nueva poblacion para {pais_actu}?: ","Inserte un valor valido.","int","La cantidad de poblacion debe ser un valor numerico mayor a cero.")
-                if nv_poblacion == None: raise VariableVaciaError("Se cancela la actualización de datos")
+                if nv_poblacion == None: raise VariableVaciaError("Se cancela la actualización de datos") # Por si no ingresa nada el usuario.
                 nv_superficie = input_c_cancel(f"¿Cual sera la nueva superficie para {pais_actu}?: ", "Inserte un valor valido.","int", "La cantidad de superficie debe ser un valor numerico mayor a cero.")
-                if nv_superficie == None: raise VariableVaciaError("Se cancela la actualización de datos")
+                if nv_superficie == None: raise VariableVaciaError("Se cancela la actualización de datos") # Por si no ingresa nada el usuario.
                 if nv_poblacion and nv_superficie:
                     d["poblacion"] = nv_poblacion 
-                    d["superficie"] = nv_superficie
+                    d["superficie"] = nv_superficie # Aca se cambian los valores, por los nuevos.
                     print("País actualizado correctamente.")
-        if not encontrado: raise NoEncontradoError("No se encontro el país...")
+        if not encontrado: raise NoEncontradoError("No se encontro el país...") # Aca la bandera, por si no se encontro ningun pais. Salta el error de noencotnrado
         return paises
-    except NoInicializadaError as e:
+    except NoInicializadaError as e: # Error de que paises esta vacia
         print(e)
-    except NoEncontradoError as e:
+    except NoEncontradoError as e: # Error de que no se encontro nada
         print(e)
-    except VariableVaciaError as e:
+    except VariableVaciaError as e: # Error de que la variable esta vacia
         print(e)
 
 # Punto 3
@@ -237,48 +237,48 @@ def buscar_pais(lista):
 
 # punto 4
 def filtrado_paises(paises):
-    try:
+    try: # abrimos try. para despues saltar los errores si es que surgen.
         if not paises:
-            raise NoInicializadaError('No hay datos cargados para filtrar.')
-        opcion = seleccionar_menu("Eliga el filtro:",['1) Continente;','2) Rango de población;','3) Rango de superficie;','4) Volver atras.'])[0]
-        match opcion:
-            case "1":
-                encontrado = False
-                filtro = seleccionar_menu("Seleccione el continente: ",["África", "América", "Antártida", "Asia", "Europa", "Oceanía"])
-                for d in paises:
-                    if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.")
-                if not encontrado: raise NoEncontradoError("No hay ningun país con ese continente.")
-            case "2":
-                encontrado = False
-                filtro = input_c_cancel("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.")
-                if filtro == None:
-                    raise VariableVaciaError('Se cancelo el filtrado de países.')
-                filtro2 = input_c_cancel("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.")
-                if filtro2 == None:
-                    raise VariableVaciaError('Se cancelo el filtrado de países.')
-                for d in paises:
-                    if filtro <= d["poblacion"] and d["poblacion"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
-                if not encontrado: raise NoEncontradoError("No hay ningun país que coincida con ese rango de población.")
-            case "3":
-                encontrado = False
-                filtro = input_c_cancel("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.")
-                if filtro == None:
-                    raise VariableVaciaError('Se cancelo el filtrado de países.')
-                filtro2 = input_c_cancel("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.")
-                if filtro2 == None:
-                    raise VariableVaciaError('Se cancelo el filtrado de países.')
-                for d in paises:
-                    if filtro <= d["superficie"] and d["superficie"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.")
-                if not encontrado: raise NoEncontradoError("No hay ningun país que coincida con ese rango de superficie.")
-            case "4":
+            raise NoInicializadaError('No hay datos cargados para filtrar.') # Si la lista paises no esta creada o no tiene datos dentro. Salta el error.
+        opcion = seleccionar_menu("Eliga el filtro:",['1) Continente;','2) Rango de población;','3) Rango de superficie;','4) Volver atras.'])[0] # Usamos la funcion questionary para que el usuario eliga la opcion de filtrado.
+        match opcion: # match con la variable devuelta "opcion"
+            case "1": # continente
+                encontrado = False # banderita
+                filtro = seleccionar_menu("Seleccione el continente: ",["África", "América", "Antártida", "Asia", "Europa", "Oceanía"]) # Otro menu más para que seleccione el continente filtro
+                for d in paises: # un for para recorrer la lista
+                    if filtro == d["continente"]: encontrado = True , print(f"-{d["nombre"]}.") # Si el continente de ese pais es el mismo que el seleccionado. Lo printeamos y cambiamos la banderita a True.
+                if not encontrado: raise NoEncontradoError("No hay ningun país con ese continente.") # en el caso de que la banderita no cambie, salta error.
+            case "2": # rango de poblacion
+                encontrado = False # banderita
+                filtro = input_c_cancel("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.") # El inicio del rango
+                if filtro == None: # Si la variable no existe:
+                    raise VariableVaciaError('Se cancelo el filtrado de países.') # salta error
+                filtro2 = input_c_cancel("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.") # El final del rango
+                if filtro2 == None: # Si la variable no existe:
+                    raise VariableVaciaError('Se cancelo el filtrado de países.') # salta error
+                for d in paises: # un for para recorrer la lista
+                    if filtro <= d["poblacion"] and d["poblacion"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.") # Buscamos si la poblacion del pais entra dentro del rango. cambiamos la banderita a True y printeamos el pais.
+                if not encontrado: raise NoEncontradoError("No hay ningun país que coincida con ese rango de población.") # en el caso de que la banderita no cambie, salta error.
+            case "3": # rango de superficie
+                encontrado = False # banderita
+                filtro = input_c_cancel("Ingrese el comienzo del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.") # El inicio del rango
+                if filtro == None: # Si la variable no existe:
+                    raise VariableVaciaError('Se cancelo el filtrado de países.') # salta error
+                filtro2 = input_c_cancel("Ingrese el final del rango: ","Trate de ingresar un valor numerico valido.","int","La cantidad debe ser mayor a cero. Minimo 1.") # El final del rango
+                if filtro2 == None: # Si la variable no existe:
+                    raise VariableVaciaError('Se cancelo el filtrado de países.') # salta error
+                for d in paises: # un for para recorrer la lista
+                    if filtro <= d["superficie"] and d["superficie"] <= filtro2: encontrado = True , print(f"-{d["nombre"]}.") # Buscamos si la superficie del pais entra dentro del rango. Cambiamos la banderita a True y printeamos el pais.
+                if not encontrado: raise NoEncontradoError("No hay ningun país que coincida con ese rango de superficie.") # en el caso de que la banderita no cambie, salta error.
+            case "4": # Nos vamos al menu principal
                 print("Volviendo...")
-            case _:
+            case _: # Por si surge un error desconocido.
                 print("Eliga una opción presentada en pantalla.")
-    except NoInicializadaError as e:
+    except NoInicializadaError as e: # Error de que paises esta vacia
         print(e)
-    except NoEncontradoError as e:
+    except NoEncontradoError as e: # Error de que no se encontro nada
         print(e)
-    except VariableVaciaError as e:
+    except VariableVaciaError as e: # Error de que la variable esta vacia
         print(e)
 
 
@@ -348,39 +348,39 @@ def ordenar_paises(lista):
 
 # punto 6
 def mostrar_estadisticas(paises):
-    try:
+    try: # abrimos try. para despues saltar los errores si es que surgen.
         if not paises:
-            raise NoInicializadaError("No hay datos cargados para calcular estadísticas.")
-        lista_poblaciones = list(map(lambda x: x["poblacion"], paises))
-        lista_superficie = list(map(lambda x: x["superficie"], paises))
-        mayor = max(lista_poblaciones)
-        menor = min(lista_poblaciones)
-        for d in paises:
-            if mayor == d["poblacion"]: pais_ma = d["nombre"]
-            if menor == d["poblacion"]: pais_me = d["nombre"]
+            raise NoInicializadaError("No hay datos cargados para calcular estadísticas.") # Si la lista paises no esta creada o no tiene datos dentro. Salta el error.
+        lista_poblaciones = list(map(lambda x: x["poblacion"], paises)) # list sirve para crear una lista. Uso lambda para agarrar cada dato de pooblacion y lo agrego a lista_poblaciones.
+        lista_superficie = list(map(lambda x: x["superficie"], paises)) # list(map)(lambda "variable temporal": variable temporal["clave de los diccionarios"], nombre de la lista). Aca hacemos lo mismo que poblaciones solo que con superficie
+        mayor = max(lista_poblaciones) # con max saco el mayor numero de la lista
+        menor = min(lista_poblaciones) # con min saco el menor numero de la lista
+        for d in paises: # un for para recorrer la lista
+            if mayor == d["poblacion"]: pais_ma = d["nombre"] # buscamos la poblacion que coincida con mayor para guardarlo en otra variable
+            if menor == d["poblacion"]: pais_me = d["nombre"] # lo mismo pero con menor
         print(f"""
 El país con mayor población es: {pais_ma}, con una cantidad de: {mayor} habitantes.
-El país con menor población es: {pais_me}, con una cantidad de: {menor} habitantes.""")
-        print(f"El promedio de población es: {sum(lista_poblaciones) / len(lista_poblaciones)}.")
-        print(f"El promedio de superficie es: {sum(lista_superficie) / len(lista_superficie)}.")
+El país con menor población es: {pais_me}, con una cantidad de: {menor} habitantes.""")# printeamos los datos sacados
+        print(f"El promedio de población es: {sum(lista_poblaciones) / len(lista_poblaciones)}.") # printeamos promedios. uso sum para sumar todos los datos de la lista. len para sacar la cantidad de datos dentro de la lista.
+        print(f"El promedio de superficie es: {sum(lista_superficie) / len(lista_superficie)}.") # formula promedio: sum(la lista) / len(la lista). Saco promedio de poblacion y despues de superficie.
         americanos = 0
         europeos = 0
         africanos = 0
         asiaticos = 0
-        oceanicos = 0
-        for d in paises:
+        oceanicos = 0 # todas estas variables son un contador de cada continente.
+        for d in paises: # un for para recorrer la lista
             if d["continente"] == "América": americanos += 1
             elif d["continente"] == "África": africanos += 1
             elif d["continente"] == "Europa": europeos += 1
             elif d["continente"] == "Asia": asiaticos += 1
-            elif d["continente"] == "Oceanía": oceanicos += 1
+            elif d["continente"] == "Oceanía": oceanicos += 1 # aca busco que el continente coincida con el nombre del continente. Cuando coincidan le sumo uno al contador
         print(f"""Cantidad de paises en..:
 América: {americanos};
 Europa: {europeos};
 Asia: {asiaticos};
 África: {africanos};
-Oceanía: {oceanicos}.""")
-    except NoInicializadaError as e:
+Oceanía: {oceanicos}.""") # aca imprimo los contadores.
+    except NoInicializadaError as e: # Error de que paises esta vacia
         print(e)
 
 
