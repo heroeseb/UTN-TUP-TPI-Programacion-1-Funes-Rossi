@@ -15,7 +15,6 @@ Azerbaiyán,10400000,86600,Asia
 Bahamas,412000,13943,América
 Bangladés,173000000,147570,Asia
 Barbados,281000,430,América
-Bélgica,11600000,30528,Europa
 Belice,441000,22966,América
 Benín,14500000,112622,África
 Bhután,787000,38394,Asia
@@ -27,23 +26,23 @@ Brunéi,460000,5765,Asia
 Bulgaria,6500000,110879,Europa
 Burkina Faso,24500000,272967,África
 Burundi,13700000,27834,África
+Bélgica,11600000,30528,Europa
 Cabo Verde,598000,4033,África
 Camboya,17500000,181035,Asia
 Camerún,29300000,475442,África
 Canadá,40500000,9984670,América 
 Chile,19600000,756102,América
 China,1422584933,9596961,Asia
+Chipre,1280000,9251,Europa
 Colombia,52500000,1141748,América
 Comoras,921000,2235,África
-Congo (Rep. del),6000000,342000,África
 Congo (Rep. Dem.),111000000,2344858,África
-Corea ,25900000,120540,Asia
+Congo (Rep. del),6000000,342000,África
 Corea,51700000,100210,Asia
+Corea ,25900000,120540,Asia
 Costa Rica,5300000,51100,América
-Cuba,11100000,109884,América
-Chipre,1280000,9251,Europa
-Ciudad del Vaticano,800,0.44,Europa
 Croacia,3870000,56594,Europa
+Cuba,11100000,109884,América
 Dinamarca,5930000,42933,Europa
 Dominica,74000,751,América
 Ecuador,18500000,256370,América
@@ -70,8 +69,8 @@ Granada,126000,344,América
 Grecia,10400000,131957,Europa
 Guatemala,18600000,108889,América
 Guinea,14500000,245857,África
-Guinea-Bisáu,2200000,36125,África
 Guinea Ecuatorial,1800000,28051,África
+Guinea-Bisáu,2200000,36125,África
 Guyana,810000,214969,América
 Haití,12000000,27750,América
 Honduras,10600000,112492,América
@@ -79,8 +78,8 @@ Hungría,9600000,93030,Europa
 India,1410000000,3287263,Asia
 Indonesia,278000000,1904569,Asia
 Irak,46000000,438317,Asia
-Irán,89000000,1648195,Asia
 Irlanda,5200000,70273,Europa
+Irán,89000000,1648195,Asia
 Islandia,390000,103000,Europa
 Israel,9800000,22072,Asia
 Italia,59000000,301340,Europa
@@ -94,37 +93,36 @@ Kiribati,130000,811,Oceanía
 Kuwait,4500000,17818,Asia
 Laos,7600000,236800,Asia
 Letonia,1860000,64589,Europa
-Líbano,5600000,10452,Asia
 Liberia,5500000,111369,África
 Libia,7000000,1759540,África
 Liechtenstein,39000,160,Europa
 Lituania,2800000,65300,Europa
 Luxemburgo,660000,2586,Europa
-Madagascar,31000000
+Líbano,5600000,10452,Asia
 Mauricio,1300000,2040,África
 Mauritania,4900000,1030700,África
-México,129000000,1964375,América
 Micronesia,115000,702,Oceanía
 Moldavia,2600000,33846,Europa
-Mónaco,39000,2,Europa
 Mongolia,3500000,1564116,Asia
 Montenegro,620000,13812,Europa
 Mozambique,34000000,801590,África
+México,129000000,1964375,América
+Mónaco,39000,2,Europa
 Namibia,2600000,825615,África
 Nauru,13000,21,Oceanía
 Nepal,31000000,147181,Asia
 Nicaragua,7000000,130373,América
-Níger,28000000,1267000,África
 Nigeria,227882945,923768,África
 Noruega,5500000,385207,Europa
 Nueva Zelanda,5300000,268021,Oceanía
+Níger,28000000,1267000,África
 Omán,5200000,309500,Asia
-Países Bajos,17800000,41543,Europa
 Pakistán,242000000,881913,Asia
 Palaos,18000,459,Oceanía
 Panamá,4600000,75417,América
 Papúa Nueva Guinea,9900000,462840,Oceanía
 Paraguay,7500000,406752,América
+Países Bajos,17800000,41543,Europa
 Perú,34000000,1285216,América
 Polonia,37400000,312696,Europa
 Portugal,10300000,92212,Europa
@@ -149,8 +147,9 @@ Singapur,5900000,728,Asia
 Siria,23000000,185180,Asia
 Somalia,19000000,637657,África
 Sri Lanka,22000000,65610,Asia
-Sudán,46000000,1861484,África
+Sudáfrica,62000000,1219090,África
 Sudán,12000000,619745,África
+Sudán,46000000,1861484,África
 Suecia,10500000,450295,Europa
 Suiza,8900000,41284,Europa
 Surinam,630000,163820,América
@@ -161,10 +160,10 @@ Timor Oriental,1400000,14874,Asia
 Togo,9400000,56785,África
 Tonga,106000,747,Oceanía
 Trinidad y Tobago,1400000,5130,América
-Túnez,12500000,163610,África
 Turkmenistán,6500000,488100,Asia
 Turquía,87000000,783562,Asia
 Tuvalu,12000,26,Oceanía
+Túnez,12500000,163610,África
 Ucrania,37000000,603500,Europa
 Uganda,49000000,241038,África
 Uruguay,3500000,176215,América
@@ -176,4 +175,3 @@ Yemen,34000000,527968,Asia
 Yibuti,1200000,23200,África
 Zambia,21000000,752612,África
 Zimbabue,17000000,390757,África
-Sudáfrica,62000000,1219090,África
