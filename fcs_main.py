@@ -27,6 +27,7 @@ class NumeroNegativoError(Exception):
 
 # Función para cargar datos
 def cargar_datos(ruta):
+    '''Lee el archivo CSV de países y carga sus datos en una lista de diccionarios, validando los tipos de datos.'''
     paises = []
     try:
         with open(ruta, 'r', encoding='utf-8', newline='') as archivo:
@@ -50,6 +51,7 @@ def cargar_datos(ruta):
 Fieldnames = ['nombre', 'poblacion', 'superficie', 'continente']
 
 def guardar_datos(lista):
+    '''Guarda la lista actual de países en el archivo CSV especificado en la ruta.'''
     try:
         with open(csv_ruta, 'w', newline='', encoding='utf-8') as archivo:
             writer = csv.DictWriter(archivo, fieldnames=Fieldnames)
@@ -61,14 +63,17 @@ def guardar_datos(lista):
 
 # Limpiar consola
 def limpiar_consola():
+    '''Limpia la pantalla de la consola adaptándose al sistema operativo en uso.'''
     os.system('cls' if os.name == 'nt' else 'clear') # basicamente elimina todo lo escrito anteriormente en la consola. La limpia visualmente.
 
 # Función para continuar
 def continuar():
+    '''Pausa la ejecución del programa hasta que el usuario presione la tecla Enter.'''
     input("Presione ¬Enter para continuar") # cualquer cosa que ponga el usuario, va a continuar. 
 
 # funcion para quitar tildes
 def quitar_tildes(texto): # basicamente cambia las letras que llevan tildes por letras que no tengan tildes.
+    '''Convierte el texto a minúsculas y reemplaza las vocales con tilde y caracteres especiales por sus versiones normales.'''
     texto = texto.lower() # primero lo vuelve todo minusculas
     reemplazos = {
         'á': 'a',
@@ -86,6 +91,7 @@ def quitar_tildes(texto): # basicamente cambia las letras que llevan tildes por 
 
 # Seleccionar con questionary
 def seleccionar_menu(mensaje,opciones):
+    '''Despliega un menú interactivo utilizando la librería questionary y retorna la opción seleccionada.'''
     opcion = questionary.select( # Opcion es una variable que toma el dato que devuelve .select()
         message= mensaje, # message es el mensaje de aparece primero, pero que no se selecciona
         choices= opciones # choices son las opciones que el usuario puede seleccionar 
@@ -94,6 +100,7 @@ def seleccionar_menu(mensaje,opciones):
 
 # Función desea continuar con la carga
 def desea_continuar():
+    '''Pregunta al usuario si desea continuar con el proceso actual y retorna True o False según corresponda.'''
     continuar = questionary.select( # continuar es una variable que toma el dato que devuelve .select()
         message= '¿Desea continuar con la carga?: ', # message es el mensaje de aparece primero, pero que no se selecciona
         choices= ['Si','No'] # choices son las opciones que el usuario puede seleccionar 
@@ -102,6 +109,7 @@ def desea_continuar():
 
 # Función de input con cancelación
 def input_c_cancel(mensaje,mensaje_error='Inserte un valor valido.',tipo='str',mensaje_negativo='¡El número debe ser mayor a cero!'):
+    '''Solicita una entrada por teclado validando si es de tipo entero (positivo) o cadena de texto, permitiendo cancelar.'''
     match tipo:
         case 'int': # Si esperamos que sea int el dato devuelto
             while True:
@@ -132,6 +140,7 @@ def input_c_cancel(mensaje,mensaje_error='Inserte un valor valido.',tipo='str',m
 
 # Punto 1
 def agregar_pais(lista):
+    '''Pide los datos de un nuevo país por consola, los valida, verifica que no esté duplicado y lo agrega a la lista.'''
     try:
         continentes = {'africa':'África','america':'América','antartida':'Antártida','asia':'Asia','europa':'Europa','oceania':'Oceanía'}
         nombre = input_c_cancel('Ingrese el nombre del país: ', '¡Ingrese un nombre válido','str')
@@ -165,6 +174,7 @@ def agregar_pais(lista):
 
 # punto 2
 def actualizar_datos_pys(paises):
+    '''Busca un país determinado por su nombre y permite actualizar sus valores de población y superficie.'''
     try: # abrimos try. para despues saltar los errores si es que surgen.
         if not paises:
             raise NoInicializadaError('No hay datos cargados para actualizar.') # Si la lista paises no esta creada o no tiene datos dentro. Salta el error.
@@ -218,6 +228,7 @@ def buscar_pais(lista):
 
 # punto 4
 def filtrado_paises(paises):
+    '''Muestra un menú para filtrar y listar países según continente, rangos de población o rangos de superficie.'''
     try: # abrimos try. para despues saltar los errores si es que surgen.
         if not paises:
             raise NoInicializadaError('No hay datos cargados para filtrar.') # Si la lista paises no esta creada o no tiene datos dentro. Salta el error.
@@ -265,6 +276,7 @@ def filtrado_paises(paises):
 
 # Punto 5
 def mostrar_todos_paises(lista):
+    '''Le pregunta al usuario si desea visualizar todos los países y, en caso afirmativo, los imprime estructuradamente por consola.'''
     opcion = seleccionar_menu('¿Desea mostrar todos los países?:',['1. Si','2. No'])
     match opcion[0]:
         case '1':
@@ -277,6 +289,7 @@ def mostrar_todos_paises(lista):
             return
 
 def ordenar_paises(lista):
+    '''Ordena la lista de países por nombre, población o superficie de forma ascendente o descendente según el usuario elija.'''
     try:
         if not lista:
             raise NoInicializadaError('No hay datos cargados para ordenar.')
@@ -329,6 +342,7 @@ def ordenar_paises(lista):
 
 # punto 6
 def mostrar_estadisticas(paises):
+    '''Calcula y muestra estadísticas generales como promedios, máximos, mínimos de población y cantidad de países por continente.'''
     try: # abrimos try. para despues saltar los errores si es que surgen.
         if not paises:
             raise NoInicializadaError("No hay datos cargados para calcular estadísticas.") # Si la lista paises no esta creada o no tiene datos dentro. Salta el error.
