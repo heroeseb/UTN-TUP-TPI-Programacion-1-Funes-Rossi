@@ -59,25 +59,6 @@ def guardar_datos(lista):
     except PermissionError:
         print('¡Error! No se pudo guardar. El archivo está abierto por otro programa o no hay permisos.')
 
-# Validación de inputs
-def input_str(mensaje, mensaje_2=None):
-    while True:
-        try:
-            input_salid = input(mensaje).strip() # saca los espacios del principio y final si es que hay
-            if not input_salid.replace(' ', '').isalpha(): # verifica que no sea un espacio vacio, que no sea nada y que sean letras nada más.
-                raise TypeError # salta error TypeError
-            return input_salid # devuelve lo ingresado
-        except TypeError: # error de tipo
-            print(mensaje_2 if mensaje_2 else 'Error de tipo')
-
-def input_int(mensaje, mensaje_2=None):
-    while True:
-        try:
-            input_salid = int(input(mensaje))
-            return input_salid # devuelve lo ingresado
-        except ValueError: # error de valor, si es que no se pudo convertir el input_salid a numero entero
-            print(mensaje_2 if mensaje_2 else 'Error de valor')
-
 # Limpiar consola
 def limpiar_consola():
     os.system('cls' if os.name == 'nt' else 'clear') # basicamente elimina todo lo escrito anteriormente en la consola. La limpia visualmente.
